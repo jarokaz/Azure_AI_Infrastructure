@@ -15,6 +15,7 @@ az configure --defaults location=westus2
 ```
 
 ## Create a storage account
+We will use Azure file share backed up by a Azure storage to store training data, training scripts, training logs and checkpoints, and the final model.
 ```
 az storage account create --name <Storage Account Name> --sku Standard_LRS
 ```
