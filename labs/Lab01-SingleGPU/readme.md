@@ -22,6 +22,10 @@ az storage account create --name <Storage Account Name> --sku Standard_LRS
 ### Set environmnent variables
 To simplify further commands we can set up environmental variables with the Storage account name and the access key
 ```
+az storage account keys list \
+    -n <Storage account name> \
+    -g <Resource group name> \
+    -o table
 export AZURE_STORAGE_ACCOUNT=<Storage account name>
 export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
 ```
@@ -33,14 +37,6 @@ az storage share create \
     --account-name <Storage account Name> 
     --name <File share name>
 ```
-### Retrieve storage account keys
-```
-az storage account keys list \
-    -n <Storage account name> \
-    -g <Resource group name> \
-    -o table
-```
-
 
 ### Create a directory in the share
 ```
