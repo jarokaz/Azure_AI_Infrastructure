@@ -41,11 +41,13 @@ az storage share create \
 ### Create a directory in the share
 ```
 az storage directory create \
-    --share-name  baifs
-    --name lab01
+    --share-name  <File share name>
+    --name <Folder name>
 ```
 
-### Upload training data
+### Copy training data
+The training data in the TFRecords format have been uploaded to a public container in Azure storage. Copy the files to your file share
+
 ```
 cd ~/repos/AzureAIInfrastructure/data/cifar10
 az storage file upload --share-name baifs --source train.tfrecords --path lab01
