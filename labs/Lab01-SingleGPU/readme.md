@@ -1,4 +1,4 @@
-# A warm up exercise - training a simple CNN on a single GPU - locally and with Batch AI
+# Using Batch AI to run a training job on a single GPU
 
 ## Make sure that Batch AI resource providers are registered for you subscription
 ```
