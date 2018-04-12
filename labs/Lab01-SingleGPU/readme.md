@@ -9,8 +9,8 @@ az provider register -n Microsoft.Batch
 ## Create a resource group
 Batch AI clusters and jobs are Azure resources and must be placed in an Azure resource group
 ```
-az group create --name <Resource Group Name> --location westus2
-az configure --defaults group=<Resource Group Name>
+az group create --name <Resource group name> --location westus2
+az configure --defaults group=<Resource group Name>
 az configure --defaults location=westus2
 ```
 
@@ -19,27 +19,28 @@ We will use an Azure file share backed up by  Azure storage to store training da
 ```
 az storage account create --name <Storage Account Name> --sku Standard_LRS
 ```
+### Set environmnent variables
+To simplify further commands we can set up environmental variables with the Storage account name and the access key
+```
+export AZURE_STORAGE_ACCOUNT=<Storage account name>
+export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
+```
 
 ## Prepare Azure file share
 ### Create a file share
 ```
 az storage share create \
-    --account-name <Storage Account Name> 
-    --name baifs
+    --account-name <Storage account Name> 
+    --name <File share name>
 ```
 ### Retrieve storage account keys
 ```
 az storage account keys list \
-    -n <account name> \
-    -g <resource group name> \
+    -n <Storage account name> \
+    -g <Resource group name> \
     -o table
 ```
 
-### Set environmnent variables
-```
-export AZURE_STORAGE_ACCOUNT=<account name>
-export AZURE_STORAGE_ACCESS_KEY=<access key>
-```
 
 ### Create a directory in the share
 ```
