@@ -9,9 +9,9 @@ import tensorflow as tf
 FLAGS = tf.app.flags.FLAGS
 
 # Default global parameters
-tf.app.flags.DEFINE_integer('batch_size', 64, "Number of images per batch")
-tf.app.flags.DEFINE_integer('max_steps', 500000, "Number of steps to train")
-tf.app.flags.DEFINE_string('data_dir', '../../data/tinyimagenet', "Path to datasets")
+tf.app.flags.DEFINE_integer('batch_size', 128, "Number of images per batch")
+tf.app.flags.DEFINE_integer('max_steps', 50000, "Number of steps to train")
+tf.app.flags.DEFINE_string('data_dir', '../cifar10-data', "Path to datasets")
 tf.app.flags.DEFINE_integer('eval_steps', 1000, "Number of steps to train")
 tf.app.flags.DEFINE_string('job_dir', 'jobdir', "Checkpoints")
 tf.app.flags.DEFINE_string('training_file', 'train.tfrecords', "Training file name")
@@ -21,28 +21,17 @@ tf.app.flags.DEFINE_string('verbosity', 'INFO', "Control logging level")
 tf.app.flags.DEFINE_float('lr', 1e-4, "Learning rate")
 tf.app.flags.DEFINE_boolean('multi_gpu', False, "Utilize all GPUs")
 tf.app.flags.DEFINE_integer('num_parallel_calls', 12, "Parallelization of dataset.map")
-tf.app.flags.DEFINE_integer('prefetch_buffer_size', 1, "Size of the prefetch buffer for dataset pipelines")
-tf.app.flags.DEFINE_float('weight_decay', 0.0005, "L2 regularization")
-tf.app.flags.DEFINE_integer('throttle_secs', 120, "Evaluate every n seconds")
+tf.app.flags.DEFINE_integer('prefetch_buffer_size', 2, "Size of the prefetch buffer for dataset pipelines")
+### Define input pipelines
 
-# Global constants describing the Tiny Imagenet data set.
-IMAGE_SHAPE = [64, 64, 3]
-INPUT_SHAPE = [None, 64, 64, 3]
+# Global constants describing the CIFAR-10 data set.
+IMAGE_SHAPE = [32, 32, 3]
+INPUT_SHAPE = [None, 32, 32, 3]
 INPUT_NAME = 'images'
-NUM_CLASSES = 200 
+NUM_TRAIN_EXAMPLES = 50000
+NUM_VALIDATION_EXAMPLES = 10000
+NUM_CLASSES = 10
 
-# Define input pipelines
-  
-def get_index(data_dir, mode):
-  
-  path = os.path.join(data_dir,  mode + '.txt')
-  with open(path, 'r') as index:
-    examples = [line.strip().split(' ') for line in index]
-
-  images = [os.path.join(data_dir, 'images', example[0]) for example in examples]
-  labels = [int(example[1]) for example in examples]
-  
-  return images, labels 
 
 def scale_image(image):
 
@@ -51,51 +40,46 @@ def scale_image(image):
     image = image - 1.
     return image
 
-def process_image(augment):
-  def _process_image(image_path, label): 
-    image_string = tf.read_file(image_path) 
-    image_decoded = tf.image.decode_jpeg(image_string, channels=3)
-    image = tf.reshape(image_decoded, IMAGE_SHAPE)
-    image = tf.cast(image, tf.float32)
-    image = scale_image(image)
-    
-    if augment:
-      image = tf.image.resize_image_with_crop_or_pad(image, IMAGE_SHAPE[0] + 8, IMAGE_SHAPE[1] + 8)
-      image = tf.random_crop(image, IMAGE_SHAPE)
-      image = tf.image.random_flip_left_right(image)
+  
+def _parse(example_proto, augment):
+  features = tf.parse_single_example(
+        example_proto,
+        features={
+            'image': tf.FixedLenFeature([], tf.string),
+            'label': tf.FixedLenFeature([], tf.int64),
+        })
+  image = tf.decode_raw(features['image'], tf.uint8)
+  image = tf.cast(image, tf.float32)
+  image = scale_image(image)
+  image = tf.transpose(tf.reshape(image, [3, 32, 32]), [1, 2, 0])
+  
+  #if augment:
+      # Pad 4 pixels on each dimension of feature map, done in mini-batch
+      #image = tf.image.resize_image_with_crop_or_pad(image, 40, 40)
+      #image = tf.random_crop(image, IMAGE_SHAPE)
+      #image = tf.image.random_flip_left_right(image)
+
      
-    label = tf.cast(label, tf.int32)
+  label = features['label']
+  #label = tf.one_hot(label, NUM_CLASSES, on_value=1, off_value=0)
+  
+  return image, label
 
-    return image, label
+def input_fn(filename, train, batch_size, buffer_size=20000):
   
-  return _process_image
-
-  
-def input_fn(data_dir, train, batch_size, num_parallel_calls):
- 
-  # Get a list of files 
-  if train:
-    images, labels = get_index(data_dir, 'training') 
-  else:
-    images, labels = get_index(data_dir, 'validation' )
-  
-  assert images != []
-  assert len(images) == len(labels)
-  
-  # Cache, and shuffle, a list of files
-  dataset = tf.data.Dataset.from_tensor_slices((images, labels)).repeat(None if train else 1)
- 
-  if train:
-    dataset = dataset.cache()
-    dataset = dataset.shuffle(buffer_size=len(images))
-  
+  # Open a file
+  dataset = tf.data.TFRecordDataset(filename)
+  dataset = dataset.repeat(None if train else 1)
   # Parse records
-  dataset = dataset.map(process_image(train), num_parallel_calls=num_parallel_calls)
-  
-  # Batch, prefetch, and serve
+  parse = lambda x: _parse(x, train)
+  dataset = dataset.map(parse, num_parallel_calls=FLAGS.num_parallel_calls)
+  dataset = dataset.cache()
+  if train:
+        dataset = dataset.shuffle(buffer_size)
+   
   dataset = dataset.batch(batch_size)
-  dataset = dataset.prefetch(buffer_size=1)
-  
+  dataset = dataset.prefetch(buffer_size=FLAGS.prefetch_buffer_size)
+  #
   iterator = dataset.make_one_shot_iterator()
   image_batch, label_batch = iterator.get_next()
   
@@ -109,21 +93,42 @@ def serving_input_fn():
     return tf.estimator.export.ServingInputReceiver({INPUT_NAME: scaled_image}, {INPUT_NAME: input_image})
 
 
-### Define a model function for a custom estimation
+### Define a network model
+from tensorflow.python.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D, Activation
 
 
-#from resnet import model
-from resnet import model
+def simple_net(images, training):
+  
+  x = Conv2D(32, (3, 3), padding='same')(images)
+  x = Activation('relu')(x)
+  x = Conv2D(32, (3, 3))(x)
+  x = Activation('relu')(x)
+  x = MaxPooling2D(pool_size=(2, 2))(x)
+  x = Dropout(0.25)(x, training=training)
 
+  x = Conv2D(64, (3, 3), padding='same')(x)
+  x = Activation('relu')(x)
+  x = Conv2D(64, (3, 3))(x)
+  x = Activation('relu')(x)
+  x = MaxPooling2D(pool_size=(2, 2))(x)
+  x = Dropout(0.25)(x, training=training)
+
+  x = Flatten()(x)
+  x = Dense(512)(x)
+  x = Activation('relu')(x)
+  x = Dropout(0.5)(x, training=training)
+  logits = Dense(10)(x)
+  
+  return logits
+
+    
+### Define a model function for a custom estimator
 def model_fn(features, labels, mode, params):
   
-  images = features[INPUT_NAME]
-  network_model = model 
-
-  if mode == tf.estimator.ModeKeys.TRAIN:
-      tf.keras.backend.set_learning_phase(1)
+  if isinstance(features, dict):
+    images = features[INPUT_NAME]
   else:
-      tf.keras.backend.set_learning_phase(0)
+    images = features
     
   if mode == tf.estimator.ModeKeys.TRAIN:
     optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.lr)
@@ -131,7 +136,7 @@ def model_fn(features, labels, mode, params):
       print("Running on multiple GPUs")
       optimizer = tf.contrib.estimator.TowerOptimizer(optimizer)
       
-    logits = network_model(images)
+    logits = simple_net(images, training=True)
     loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
     
     accuracy = tf.metrics.accuracy(
@@ -150,7 +155,7 @@ def model_fn(features, labels, mode, params):
       train_op=optimizer.minimize(loss, tf.train.get_or_create_global_step()))
   
   if mode == tf.estimator.ModeKeys.EVAL:
-    logits = network_model(images)
+    logits = simple_net(images, training=False)
     loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
     return tf.estimator.EstimatorSpec(
       mode=tf.estimator.ModeKeys.EVAL,
@@ -162,7 +167,7 @@ def model_fn(features, labels, mode, params):
     
     
   if mode == tf.estimator.ModeKeys.PREDICT:
-    logits = network_model(images)
+    logits = simple_net(images, training=False)
     predictions = {
       'classes': tf.argmax(logits, axis=1),
       'probabilities': tf.nn.softmax(logits)
@@ -173,9 +178,7 @@ def model_fn(features, labels, mode, params):
       export_outputs={
         'classify': tf.estimator.export.PredictOutput(predictions)
       })
-  return model_fn
-
-          
+        
 
 def validate_batch_size_for_multi_gpu(batch_size):
   """
@@ -202,18 +205,18 @@ def validate_batch_size_for_multi_gpu(batch_size):
   
  
 ### Define and start a training job
-
 def train_evaluate():
   
   model_function = model_fn
-    
+  
   if FLAGS.multi_gpu:
     print("Training on multiple GPUs")
     validate_batch_size_for_multi_gpu(FLAGS.batch_size)
     model_function = tf.contrib.estimator.replicate_model_fn(
       model_fn, loss_reduction=tf.losses.Reduction.MEAN)
+  
 
-  classifier = tf.estimator.Estimator(
+  cifar_classifier = tf.estimator.Estimator(
     model_fn=model_function, 
     model_dir=FLAGS.job_dir,
     params={
@@ -221,21 +224,23 @@ def train_evaluate():
     })
   
   #Create training, evaluation, and serving input functions
-  train_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, train=True, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
-  valid_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, train=False, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
+  training_file = os.path.join(FLAGS.data_dir, FLAGS.training_file)
+  validation_file = os.path.join(FLAGS.data_dir, FLAGS.validation_file)
+  train_input_fn = lambda: input_fn(filename=training_file, batch_size=FLAGS.batch_size, train=True)
+  valid_input_fn = lambda: input_fn(filename=validation_file, batch_size=FLAGS.batch_size, train=False)
+
   
   #Create training and validation specifications
   train_spec = tf.estimator.TrainSpec(input_fn=train_input_fn, max_steps=FLAGS.max_steps)
   
-  export_latest = tf.estimator.FinalExporter("classifier", serving_input_fn)
+  export_latest = tf.estimator.FinalExporter("cifar10.cnn", serving_input_fn)
   eval_spec = tf.estimator.EvalSpec(input_fn=valid_input_fn, 
-                                      steps=None,
-                                      throttle_secs=FLAGS.throttle_secs,
+                                      steps=FLAGS.eval_steps,
                                       exporters=export_latest)
   
   #Start training
   tf.logging.set_verbosity(FLAGS.verbosity)
-  tf.estimator.train_and_evaluate(classifier, train_spec, eval_spec)
+  tf.estimator.train_and_evaluate(cifar_classifier, train_spec, eval_spec)
      
   
 
@@ -250,7 +255,6 @@ def main(argv=None):
 
 if __name__ == '__main__':
   tf.app.run()
-  
   
   
 
