@@ -30,7 +30,7 @@ IMAGE_SHAPE = [64, 64, 3]
 INPUT_SHAPE = [None, 64, 64, 3]
 INPUT_NAME = 'images'
 NUM_CLASSES = 200 
-NUM_TRAINING_FILES = 10
+NUM_TRAINING_FILES = 9 
 
 # Define input pipelines
   
@@ -56,11 +56,12 @@ def _parse(example_proto, augment):
   image =tf.reshape(image, IMAGE_SHAPE)
   
   if augment:
-    image = tf.image.resize_image_with_crop_or_pad(image, 68, 68)
-    image = tf.random_crop(image, IMAGE_SHAPE)
+    #image = tf.image.resize_image_with_crop_or_pad(image, 68, 68)
+    #image = tf.random_crop(image, IMAGE_SHAPE)
     image = tf.image.random_flip_left_right(image)
      
   label = features['label']
+  label = tf.one_hot(label, NUM_CLASSES)
   return image, label
 
 
@@ -68,7 +69,7 @@ def get_filenames(is_training, data_dir):
     if is_training:
         files = [os.path.join(data_dir, "training_{0}.tfrecords".format(i+1)) for i in range(NUM_TRAINING_FILES)]
     else: 
-        files = [os.path.join(data_dir, "validation.tfrecords")]
+        files = [os.path.join(data_dir, "training_10.tfrecords")]
     return files
         
     
@@ -117,8 +118,8 @@ def serving_input_fn():
 ### Define a model function for a custom estimation
 
 
-#from resnet import model
-from simple_net import model
+from resnet import model
+#from simple_net import model
 
 def model_fn(features, labels, mode, params):
   
@@ -137,10 +138,10 @@ def model_fn(features, labels, mode, params):
       optimizer = tf.contrib.estimator.TowerOptimizer(optimizer)
       
     logits = network_model(images)
-    loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
+    loss = tf.losses.softmax_cross_entropy(onehot_labels=labels, logits=logits)
     
     accuracy = tf.metrics.accuracy(
-      labels=labels, predictions=tf.argmax(logits, axis=1))
+      labels=tf.argmax(labels, axis=1), predictions=tf.argmax(logits, axis=1))
     
     # Name tensors to be logged with LoggingTensorHook
     tf.identity(FLAGS.lr, 'learning_rate')
@@ -156,13 +157,13 @@ def model_fn(features, labels, mode, params):
   
   if mode == tf.estimator.ModeKeys.EVAL:
     logits = network_model(images)
-    loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
+    loss = tf.losses.softmax_cross_entropy(onehot_labels=labels, logits=logits)
     return tf.estimator.EstimatorSpec(
       mode=tf.estimator.ModeKeys.EVAL,
       loss=loss,
       eval_metric_ops={'accuracy': 
                        tf.metrics.accuracy(
-                         labels=labels, 
+                         labels=tf.argmax(labels, axis=1),
                          predictions=tf.argmax(logits, axis=1))})
     
     
