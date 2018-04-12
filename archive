@@ -33,6 +33,16 @@ NUM_CLASSES = 200
 
 # Define input pipelines
   
+def get_index(data_dir, mode):
+  
+  path = os.path.join(data_dir,  mode + '.txt')
+  with open(path, 'r') as index:
+    examples = [line.strip().split(' ') for line in index]
+
+  images = [os.path.join(data_dir, 'images', example[0]) for example in examples]
+  labels = [int(example[1]) for example in examples]
+  
+  return images, labels 
 
 def scale_image(image):
 
@@ -41,42 +51,46 @@ def scale_image(image):
     image = image - 1.
     return image
 
-  
-def _parse(example_proto, augment):
-  features = tf.parse_single_example(
-        example_proto,
-        features={
-            'image': tf.FixedLenFeature([], tf.string),
-            'label': tf.FixedLenFeature([], tf.int64),
-        })
-  image = tf.decode_raw(features['image'], tf.uint8)
-  image = tf.cast(image, tf.float32)
-  #image = scale_image(image)
-  #image = tf.transpose(tf.reshape(image, [3, 32, 32]), [1, 2, 0])
-  
-  if augment:
-    # Pad 4 pixels on each dimension of feature map, done in mini-batch
-    image = tf.image.resize_image_with_crop_or_pad(image, 40, 40)
-    image = tf.random_crop(image, IMAGE_SHAPE)
-    image = tf.image.random_flip_left_right(image)
+def process_image(augment):
+  def _process_image(image_path, label): 
+    image_string = tf.read_file(image_path) 
+    image_decoded = tf.image.decode_jpeg(image_string, channels=3)
+    image = tf.reshape(image_decoded, IMAGE_SHAPE)
+    image = tf.cast(image, tf.float32)
+    image = scale_image(image)
+    
+    if augment:
+      image = tf.image.resize_image_with_crop_or_pad(image, IMAGE_SHAPE[0] + 8, IMAGE_SHAPE[1] + 8)
+      image = tf.random_crop(image, IMAGE_SHAPE)
+      image = tf.image.random_flip_left_right(image)
      
-  label = features['label']
-  label = tf.one_hot(label, NUM_CLASSES) 
-  return image, label
+    label = tf.cast(label, tf.int32)
 
+    return image, label
+  
+  return _process_image
 
   
 def input_fn(data_dir, train, batch_size, num_parallel_calls):
  
+  # Get a list of files 
+  if train:
+    images, labels = get_index(data_dir, 'training') 
+  else:
+    images, labels = get_index(data_dir, 'validation' )
   
+  assert images != []
+  assert len(images) == len(labels)
+  
+  # Cache, and shuffle, a list of files
+  dataset = tf.data.Dataset.from_tensor_slices((images, labels)).repeat(None if train else 1)
  
   if train:
     dataset = dataset.cache()
     dataset = dataset.shuffle(buffer_size=len(images))
   
   # Parse records
-  parse = lambda x: _parse(x, train)
-  dataset = dataset.map(parse, num_parallel_calls=num_parallel_calls)
+  dataset = dataset.map(process_image(train), num_parallel_calls=num_parallel_calls)
   
   # Batch, prefetch, and serve
   dataset = dataset.batch(batch_size)

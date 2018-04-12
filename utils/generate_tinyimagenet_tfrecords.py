@@ -27,6 +27,7 @@ import os
 import urllib
 import zipfile
 from skimage.io import imread
+from skimage.color import gray2rgb
 import numpy as np
 import random
 
@@ -71,6 +72,8 @@ def convert_to_tfrecord(dataset, output_file):
   with tf.python_io.TFRecordWriter(output_file) as record_writer:
     for record in dataset:
       image = imread(record[0])
+      if image.ndim < 3:
+        image = gray2rgb(image)
       example = tf.train.Example(features=tf.train.Features(
         feature={
           'image': _bytes_feature(image.tobytes()),
