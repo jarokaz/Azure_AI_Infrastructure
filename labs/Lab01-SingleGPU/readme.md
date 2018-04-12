@@ -1,6 +1,7 @@
 # Using Batch AI to run a training job on a single GPU
 
-## Make sure that Batch AI resource providers are registered for you subscription
+## Register Batch AI resource providers
+Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
 ```
 az provider register -n Microsoft.BatchAI
 az provider register -n Microsoft.Batch
