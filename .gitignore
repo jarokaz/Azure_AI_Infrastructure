@@ -1,0 +1,11 @@
+**/.vscode
+**/.ipynb_checkpoints
+**/jobdir
+**/__pycache__
+**/data
+**/cifar10
+**/tiny-imagenet
+**/temp
+**/tmp
+
+
