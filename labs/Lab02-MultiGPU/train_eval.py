@@ -11,9 +11,9 @@ FLAGS = tf.app.flags.FLAGS
 # Default global parameters
 tf.app.flags.DEFINE_integer('batch_size', 64, "Number of images per batch")
 tf.app.flags.DEFINE_integer('max_steps', 500000, "Number of steps to train")
-tf.app.flags.DEFINE_string('data_dir', '../../data/tinyimagenet', "Path to datasets")
+tf.app.flags.DEFINE_string('data_dir', '../../data/tiny-imagenet', "Path to datasets")
 tf.app.flags.DEFINE_integer('eval_steps', 1000, "Number of steps to train")
-tf.app.flags.DEFINE_string('job_dir', 'jobdir', "Checkpoints")
+tf.app.flags.DEFINE_string('job_dir', '../../jobdir', "Checkpoints")
 tf.app.flags.DEFINE_string('training_file', 'train.tfrecords', "Training file name")
 tf.app.flags.DEFINE_string('validation_file', 'validation.tfrecords', "Validation file name")
 tf.app.flags.DEFINE_integer('log_frequency', 50, 'How often to log results to the console.')
@@ -30,6 +30,7 @@ IMAGE_SHAPE = [64, 64, 3]
 INPUT_SHAPE = [None, 64, 64, 3]
 INPUT_NAME = 'images'
 NUM_CLASSES = 200 
+NUM_TRAINING_FILES = 10
 
 # Define input pipelines
   
@@ -51,31 +52,49 @@ def _parse(example_proto, augment):
         })
   image = tf.decode_raw(features['image'], tf.uint8)
   image = tf.cast(image, tf.float32)
-  #image = scale_image(image)
-  #image = tf.transpose(tf.reshape(image, [3, 32, 32]), [1, 2, 0])
+  image = scale_image(image)
+  image =tf.reshape(image, IMAGE_SHAPE)
   
   if augment:
-    # Pad 4 pixels on each dimension of feature map, done in mini-batch
-    image = tf.image.resize_image_with_crop_or_pad(image, 40, 40)
+    image = tf.image.resize_image_with_crop_or_pad(image, 68, 68)
     image = tf.random_crop(image, IMAGE_SHAPE)
     image = tf.image.random_flip_left_right(image)
      
   label = features['label']
-  label = tf.one_hot(label, NUM_CLASSES) 
   return image, label
 
 
-  
-def input_fn(data_dir, train, batch_size, num_parallel_calls):
+def get_filenames(is_training, data_dir):
+    if is_training:
+        files = [os.path.join(data_dir, "training_{0}.tfrecords".format(i+1)) for i in range(NUM_TRAINING_FILES)]
+    else: 
+        files = [os.path.join(data_dir, "validation.tfrecords")]
+    return files
+        
+    
+def input_fn(data_dir, is_training, batch_size, num_parallel_calls, shuffle_buffer=10000):
  
+  files = get_filenames(is_training, data_dir)
+  dataset = tf.data.Dataset.from_tensor_slices(files)
   
- 
-  if train:
-    dataset = dataset.cache()
-    dataset = dataset.shuffle(buffer_size=len(images))
+  # Shuffle the input files
+  if is_training:
+    dataset = dataset.shuffle(buffer_size=NUM_TRAINING_FILES)
+   
+  # Convert to individual records
+  dataset = dataset.flat_map(tf.data.TFRecordDataset)
+    
+  # Prefetch a batch at a time
+  dataset = dataset.prefetch(buffer_size=batch_size)
+    
+  # Shuffle the records
+  if is_training:
+    dataset = dataset.shuffle(buffer_size=shuffle_buffer)
   
+  dataset = dataset.repeat(None if is_training else 1)
+    
   # Parse records
-  parse = lambda x: _parse(x, train)
+  parse = lambda x: _parse(x, is_training)
   dataset = dataset.map(parse, num_parallel_calls=num_parallel_calls)
   
   # Batch, prefetch, and serve
@@ -99,7 +118,7 @@ def serving_input_fn():
 
 
 #from resnet import model
-from resnet import model
+from simple_net import model
 
 def model_fn(features, labels, mode, params):
   
@@ -207,8 +226,8 @@ def train_evaluate():
     })
   
   #Create training, evaluation, and serving input functions
-  train_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, train=True, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
-  valid_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, train=False, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
+  train_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, is_training=True, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
+  valid_input_fn = lambda: input_fn(data_dir=FLAGS.data_dir, is_training=False, batch_size=FLAGS.batch_size, num_parallel_calls=FLAGS.num_parallel_calls)
   
   #Create training and validation specifications
   train_spec = tf.estimator.TrainSpec(input_fn=train_input_fn, max_steps=FLAGS.max_steps)
