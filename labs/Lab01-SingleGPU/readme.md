@@ -89,6 +89,9 @@ az batchai cluster create \
   --user-name <User name> \
   --passwor <Password>
 ```
+
+It is recommended, although not required, to use ssh keys instead of passwords
+
 ```
 az batchai cluster create \
   --name  <Cluster name> \
