@@ -115,6 +115,12 @@ ssh-keygen -t rsa
 az batchai cluster list -o table
 ```
 
+### List ssh connection info for the nodes in a cluster
+```
+az batchai cluster list-nodes -n <Cluster name> -g <Resource group name> -o table
+```
+
+
 ## Create a training job
 
 Create a JSON template file for job `job.json'`
@@ -122,8 +128,8 @@ Create a JSON template file for job `job.json'`
 ### Create job
 ```
 az batchai job create \
-  --name mytfjob \
-  --cluster-name <cluster name> \
+  --name <Job name> \
+  --cluster-name <Cluster name> \
   --config job.json
 ```
 ### Monitor job
@@ -133,7 +139,7 @@ az batchai job list -o table
 
 ### List stdout and stderr output
 ```
-az batchai job list-files --name mytfjob --output-directory-id stdouterr
+az batchai job list-files --name <Job nme> --output-directory-id stdouterr
 ```
 
 ### Delete the job
