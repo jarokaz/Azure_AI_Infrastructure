@@ -38,11 +38,15 @@ az storage share create \
     --name <File share name>
 ```
 
-### Create a directory in the share
+### Create data and scripts directories in the share
 ```
 az storage directory create \
     --share-name  <File share name>
-    --name <Folder name>
+    --name data
+    
+az storage directory create \
+    --share-name  <File share name>
+    --name scripts
 ```
 
 ### Copy training data
