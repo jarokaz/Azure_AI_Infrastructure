@@ -17,7 +17,7 @@
         "outputDirectories": [{
             "id": "JOBDIR",
             "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
-            "pathSuffix": "jobdir/run_1"
+            "pathSuffix": "jobdir"
         }]
         
     }
