@@ -56,7 +56,7 @@ az storage file upload --share-name <File share name> --source resnet.py --path 
 ```
 
 ### Copy training data
-The training data in the TFRecords format have been uploaded to a public container in Azure storage. Copy the files to your file share
+The training data in the TFRecords format have been uploaded to a public container in Azure storage. Use the following command to copy the files to your file share. The `--dryrun` option allows you to verify the configuration before starting the asynchronous copy operation.
 
 ```
 az storage file copy start-batch \
