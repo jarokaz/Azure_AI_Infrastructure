@@ -139,7 +139,10 @@ az batchai job list -o table
 
 ### List stdout and stderr output
 ```
-az batchai job list-files --name <Job nme> --output-directory-id stdouterr
+az batchai job file list \
+  --name <Job nme> \
+  --resource-group <Resource group name> \
+  --output-directory-id stdouterr
 ```
 
 ### Delete the job
