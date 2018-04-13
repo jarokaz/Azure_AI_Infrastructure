@@ -1,4 +1,4 @@
-# Using Batch AI to run a training job on a single GPU
+# Warm up exercise - running a training job on a single GPU
 
 ## Register Batch AI resource providers
 Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
