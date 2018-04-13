@@ -167,6 +167,7 @@ az batchai cluster delete --name <Cluster name>
 ### Mount a Tensorboard logdir folder
 ```
 sudo mkdir /mnt/jkbaidemofs
-sudo mount -t cifs //jkbaidemost.file.core.windows.net/jkbaidemofs /mnt/jkbaidemofs -o vers=2.1, username=jkbaidemost,password=TDpMRqrllQEKO2Cw66s+nyIUD9hf5w0z1j8Rt2RIi2ROntbU3ta/o9zm8e+p7pllgSusWxazSDdbHEnXRjMIUg==,dir_mode=0777,file_mode=0777,serverino
+sudo mount -t cifs //jkbaidemost.file.core.windows.net/jkbaidemofs /mnt/jkbaidemofs -o vers=2.1,username=jkbaidemost,p
+assword=TDpMRqrllQEKO2Cw66s+nyIUD9hf5w0z1j8Rt2RIi2ROntbU3ta/o9zm8e+p7pllgSusWxazSDdbHEnXRjMIUg==,dir_mode=0777,file_mode=0777,serverino
 ```
 
