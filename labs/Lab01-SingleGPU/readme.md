@@ -151,7 +151,7 @@ az batchai job file stream \
   -n <Job name> \
   -g <Resource group name> \
   -d stdouterr \
-  -f stderr-wk-0.txt
+  -f <File to stream>
 ```
 
 ### Delete the job
