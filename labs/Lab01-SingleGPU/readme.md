@@ -148,8 +148,8 @@ az batchai job file list \
 ### Stream files from output directories
 ```
 az batchai job file stream \
-  -n resnet 
-  -g jkbaidemo 
+  -n <Job name>
+  -g <Resource group name> 
   -d stdouterr 
   -f stderr-wk-0.txt
 ```
