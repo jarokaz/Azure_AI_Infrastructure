@@ -4,18 +4,22 @@
     "properties": {
         "nodeCount": 1,
         "tensorFlowSettings": {
-            "pythonScriptFilePath": "$AZ_BATCHAI_INPUT_SCRIPT/train.py",
-            "masterCommandLineArgs": "-p"
+            "pythonScriptFilePath": "$AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py",
+            "masterCommandLineArgs": "--data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
         },
-        "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/azurefileshare",
+        "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
         "inputDirectories": [{
-            "id": "SCRIPT",
-            "path": "$AZ_BATCHAI_MOUNT_ROOT/azurefileshare/lab01"
+            "id": "SCRIPTS",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/scripts"
+        }, {
+            "id": "DATASET",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/data"                    
         }],
-        "containerSettings": {
-            "imageSourceRegistry": {
-                "image": "tensorflow/tensorflow:1.6.0-gpu"
-            }
-        }
+        "outputDirectories": [{
+            "id": "JOBDIR",
+            "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+            "pathSuffix": "jobdir/run_1"
+        }]
+        
     }
 }
