@@ -68,7 +68,7 @@ az storage file copy start-batch \
   --dryrun
 ```
 
-### Verify that files are in the folders
+### Verify that files are in the right folders
 ```
 az storage file list --share-name <File share name> --path scripts -o table
 az storage file list --share-name <File share name> --path data -o table
