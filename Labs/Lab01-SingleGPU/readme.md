@@ -80,7 +80,7 @@ az storage file list --share-name <File share name> --path data -o table
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
-  --image UbuntuDSVM \
+  --image UbuntuLTS \
   --min 1 \
   --max 1 \
   --storage-account-name <Storage account name> \
