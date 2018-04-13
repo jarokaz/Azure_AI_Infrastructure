@@ -21,7 +21,7 @@
         }],
         "containerSettings": {
             "imageSourceRegistry": {
-                "image": "tensorflow/tensorflow:1.6.0-gpu"
+                "image": "tensorflow/tensorflow/tensorflow:1.7.0-gpu-py3"
             }
         }
     }
