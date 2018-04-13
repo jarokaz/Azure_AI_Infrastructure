@@ -64,7 +64,7 @@ az storage file copy start-batch \
   --destination-share <File share name> \
   --source-account-name azureaiworkshop \
   --source-container tinyimagenet \
-  --pattern '*'
+  --pattern '*' \
   --dryrun
 ```
 
