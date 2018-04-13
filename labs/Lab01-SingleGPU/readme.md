@@ -62,7 +62,7 @@ The training data in the TFRecords format have been uploaded to a public contain
 az storage file copy start-batch \
   --destination-path data \
   --destination-share <File share name> \
-  --source-account-name azureaiworkshop \
+  --source-account-name azaiworkshopst \
   --source-container tinyimagenet \
   --pattern '*' \
   --dryrun
@@ -96,7 +96,7 @@ It is recommended, although not required, to use ssh keys instead of passwords
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
-  --image UbuntuDLVM \
+  --image UbuntuDSVM \
   --min 1 \
   --max 1 \
   --storage-account-name <Storage account name> \
