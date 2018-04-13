@@ -48,22 +48,30 @@ az storage directory create \
     --share-name  <File share name>
     --name scripts
 ```
+### Copy training scripts
+```
+cd <Repo root>/Azure_AI_Infrastructure/labs/Lab01-SingleGPU
+az storage file upload --share-name <File share name> --source train_eval.py --path scripts
+az storage file upload --share-name <File share name> --source resnet.py --path scripts
+```
 
 ### Copy training data
 The training data in the TFRecords format have been uploaded to a public container in Azure storage. Copy the files to your file share
 
 ```
-cd ~/repos/AzureAIInfrastructure/data/cifar10
-az storage file upload --share-name baifs --source train.tfrecords --path lab01
-az storage file upload --share-name baifs --source validation.tfrecords --path lab01
-cd ~/repos/AzureAIInfrastructure/Labs/Lab01-WarmUp
-az storage file upload --share-name baifs --source model.py --path lab01
-az storage file upload --share-name baifs --source train.py --path lab01
+az storage file copy start-batch \
+  --destination-path data \
+  --destination-share <File share name> \
+  --source-account-name azureaiworkshop \
+  --source-container tinyimagenet \
+  --pattern '*'
+  --dryrun
 ```
 
-### Verify that files are in the folder
+### Verify that files are in the folders
 ```
-az storage file list --share-name baifs --path lab01 -o table
+az storage file list --share-name <File share name> --path scripts -o table
+az storage file list --share-name <File share name> --path data -o table
 ```
 
 ## Prepare a GPU cluster
