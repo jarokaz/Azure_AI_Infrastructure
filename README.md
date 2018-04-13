@@ -13,8 +13,8 @@ When run in a classroom setting a typical agenda goes as follows:
 * Hands-on Labs
   * Lab 1 - Warm-up - Single GPU training
   * Lab 2 - Parallel training on multi GPU VMs
-  * Lab 3 - Distributed training using asynchronous SGD and parameter server architecture
-  * Lab 4 - Distributed training using synchronous Allreduce approach
+  * Lab 3 - Distributed training using **asynchronous SGD** and parameter server architecture
+  * Lab 4 - Distributed training using **synchronous Allreduce** approach
   
   
 
