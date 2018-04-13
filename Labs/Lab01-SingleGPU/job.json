@@ -18,7 +18,7 @@
             "id": "JOBDIR",
             "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
             "pathSuffix": "jobdir"
-        }]
+        }],
         "containerSettings": {
             "imageSourceRegistry": {
                 "image": "tensorflow/tensorflow:1.6.0-gpu"
