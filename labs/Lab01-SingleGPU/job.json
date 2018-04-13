@@ -3,9 +3,8 @@
     "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2017-09-01-preview/job.json",
     "properties": {
         "nodeCount": 1,
-        "tensorFlowSettings": {
-            "pythonScriptFilePath": "$AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py",
-            "masterCommandLineArgs": "--data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
+        "customToolkitSetting": {
+            "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
         },
         "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
         "inputDirectories": [{
