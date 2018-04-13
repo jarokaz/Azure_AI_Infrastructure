@@ -78,16 +78,29 @@ az storage file list --share-name <File share name> --path data -o table
 ### Create a single GPU VM node
 ```
 az batchai cluster create \
-  --name  <cluster name> \
+  --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
-  --image UbuntuLTS \
+  --image UbuntuDLVM \
   --min 1 \
   --max 1 \
-  --storage-account-name <storage account name> \
-  --afs-name baifs \
-  --afs-mount-path azurefileshare \
-  --user-name <user name> \
-  --password <password>
+  --storage-account-name <Storage account name> \
+  --afs-name <File share name> \
+  --afs-mount-path external \
+  --user-name <User name> \
+  --passwor <Password>
+```
+```
+az batchai cluster create \
+  --name  <Cluster name> \
+  --vm-size STANDARD_NC6 \
+  --image UbuntuDLVM \
+  --min 1 \
+  --max 1 \
+  --storage-account-name <Storage account name> \
+  --afs-name <File share name> \
+  --afs-mount-path external \
+  --user-name $USER \
+  --k ~/.ssh/id_rsa.pub
 ```
 
 ### Get cluster status
