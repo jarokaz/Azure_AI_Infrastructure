@@ -145,9 +145,18 @@ az batchai job file list \
   --output-directory-id stdouterr
 ```
 
+### Stream files from output directories
+```
+az batchai job file stream \
+  -n resnet 
+  -g jkbaidemo 
+  -d stdouterr 
+  -f stderr-wk-0.txt
+```
+
 ### Delete the job
 ```
-az batchai job delete --name <job name>
+az batchai job delete --name <Job name>
 ```
 
 ### Delete the  cluster
