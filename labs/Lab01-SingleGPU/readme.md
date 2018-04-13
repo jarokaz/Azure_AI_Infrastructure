@@ -102,6 +102,10 @@ az batchai cluster create \
   --user-name $USER \
   --k ~/.ssh/id_rsa.pub
 ```
+To generate `ssh` keys you can use an app of your choice including ssh-keygen:
+```
+ssh-keygen -t rsa
+```
 
 ### Get cluster status
 ```
