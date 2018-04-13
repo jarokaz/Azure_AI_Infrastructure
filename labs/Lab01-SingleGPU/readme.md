@@ -148,10 +148,10 @@ az batchai job file list \
 ### Stream files from output directories
 ```
 az batchai job file stream \
-  -n <Job name>
-  -g <Resource group name> 
-  -d stdouterr 
-  -f stderr-wk-0.txt
+  -n <Job name> \
+  -g <Resource group name> \
+  -d stdouterr \
+  -f <File to stream>
 ```
 
 ### Delete the job
@@ -161,7 +161,7 @@ az batchai job delete --name <Job name>
 
 ### Delete the  cluster
 ```
-az batchai cluster delete --name <cluster name>
+az batchai cluster delete --name <Cluster name>
 ```
 
 
