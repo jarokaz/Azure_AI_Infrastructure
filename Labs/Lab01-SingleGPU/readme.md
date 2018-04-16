@@ -136,6 +136,12 @@ az batchai cluster list -o table
 az batchai cluster list-nodes -n <Cluster name> -g <Resource group name> -o table
 ```
 
+### Explore the cluster's node
+```
+ssh <IP address> -p node
+cd /mnt/batch/tasks/shared/LS_root/mounts
+```
+
 
 ## Create a training job
 
