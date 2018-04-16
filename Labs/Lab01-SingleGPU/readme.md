@@ -96,7 +96,7 @@ It is recommended, although not required, to use ssh keys instead of passwords
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
-  --image UbuntuDSVM \
+  --image UbuntuLTS \
   --min 1 \
   --max 1 \
   --storage-account-name <Storage account name> \
@@ -116,7 +116,7 @@ Or you can generate ssh keys automatically during cluster creation
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
-  --image UbuntuDSVM \
+  --image UbuntuLTS \
   --min 1 \
   --max 1 \
   --storage-account-name <Storage account name> \
