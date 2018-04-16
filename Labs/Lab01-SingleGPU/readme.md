@@ -187,9 +187,14 @@ az batchai cluster delete --name <Cluster name>
 ```
 ## Using Tensorboard
 ### Mount a Tensorboard logdir folder
+#### On Linux
 ```
-sudo mkdir /mnt/jkbaidemofs
-sudo mount -t cifs //jkbaidemost.file.core.windows.net/jkbaidemofs /mnt/jkbaidemofs -o vers=2.1,username=jkbaidemost,password=TDpMRqrllQEKO2Cw66s+nyIUD9hf5w0z1j8Rt2RIi2ROntbU3ta/o9zm8e+p7pllgSusWxazSDdbHEnXRjMIUg==,dir_mode=0777,file_mode=0777,serverino
+sudo mkdir /mnt/<Mount directory name>
+sudo mount -t cifs //<Storage account name>.file.core.windows.net/jkbaidemofs /mnt/<Mount directory name> -o vers=2.1,username=<Storage account name> ,password=<Storage account key>,dir_mode=0777,file_mode=0777,serverino
+```
+#### On Windows
+```
+net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
 ```
 
 Note: You may need to install CIFS utilities on your Linux machine. Azure DLVM and DSVM have these pre-installed:
