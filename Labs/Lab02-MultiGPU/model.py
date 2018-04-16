@@ -1,11 +1,8 @@
-'''A simple deep CNN on that gets around 75% validation accuracy on CIFAR-10
-'''
-
 from tensorflow.python.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D, Activation
 
 
 NUM_CLASSES = 200 
-def model(images):
+def network_model(images, num_classes):
   
   x = Conv2D(32, (3, 3), padding='same')(images)
   x = Activation('relu')(x)
@@ -30,5 +27,3 @@ def model(images):
   return logits
 
     
-  
-
