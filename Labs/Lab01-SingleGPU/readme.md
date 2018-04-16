@@ -192,14 +192,17 @@ az batchai cluster delete --name <Cluster name>
 sudo mkdir /mnt/<Mount directory name>
 sudo mount -t cifs //<Storage account name>.file.core.windows.net/jkbaidemofs /mnt/<Mount directory name> -o vers=2.1,username=<Storage account name> ,password=<Storage account key>,dir_mode=0777,file_mode=0777,serverino
 ```
-#### On Windows
-```
-net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
-```
 
 Note: You may need to install CIFS utilities on your Linux machine. Azure DLVM and DSVM have these pre-installed:
 ```
 sudo apt-get update
 sudo apt-get install cifs-utils
 ```
+
+#### On Windows
+```
+net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
+```
+
+
 
