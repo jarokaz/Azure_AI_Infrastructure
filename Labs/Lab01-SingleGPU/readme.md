@@ -193,3 +193,9 @@ sudo mount -t cifs //jkbaidemost.file.core.windows.net/jkbaidemofs /mnt/jkbaidem
 assword=TDpMRqrllQEKO2Cw66s+nyIUD9hf5w0z1j8Rt2RIi2ROntbU3ta/o9zm8e+p7pllgSusWxazSDdbHEnXRjMIUg==,dir_mode=0777,file_mode=0777,serverino
 ```
 
+Note: You may need to install CIFS utilities on your Linux machine. Azure DLVM and DSVM have these pre-installed:
+```
+sudo apt-get update
+sudo apt-get install cifs-utils
+```
+
