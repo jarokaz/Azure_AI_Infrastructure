@@ -44,7 +44,7 @@ sudo service jupyterhub start
 
 
 
-## Log on to Jupyter Lab
+## Log on to Jupyter
 Use the browser to navigate to
 ```
 https://<vm name>.<region name>.cloudapp.azure.com:8000
