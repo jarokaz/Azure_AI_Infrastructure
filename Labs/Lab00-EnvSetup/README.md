@@ -10,8 +10,8 @@ Use Azure Portal to provision a Deep Learning Virtual Machine. Follow the instru
 Use ssh to logon to the virtual machine and create a new Anaconda environment
 ```
 ssh <user name>@<vm name>.<region>.cloudapp.azure.com
-conda create -n tf python=3.5 anaconda
-source activate tf
+conda create -n bai python=3.5 anaconda
+source activate bai
 ```
 ### Install azure-cli 
 Make sure you have activated the new environment
