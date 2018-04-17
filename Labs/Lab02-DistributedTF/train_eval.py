@@ -3,6 +3,7 @@ import re
 import sys
 import time
 from datetime import datetime
+import json
 
 import tensorflow as tf
 
@@ -164,16 +165,28 @@ def train_evaluate():
   tf.logging.set_verbosity(FLAGS.verbosity)
   tf.estimator.train_and_evaluate(estimator, train_spec, eval_spec)
   
+def fix_tf_config():
+  tf_config = json.loads(os.environ["TF_CONFIG"])
+  cluster = tf_config['cluster']
+  task = tf_config['task']
+  worker = cluster['worker']
+  chief = {"chief": [worker.pop(0)]} 
+  cluster.update(chief)
+  if task['type'] == 'master':
+    task['type']='chief'
+  elif task['type'] == 'worker':
+    task['index'] = task['index'] - 1
+  tf_config = {'cluster': cluster, 'task': task}
+  os.environ['TF_CONFIG'] = json.dumps(tf_config)
 
 def main(argv=None):
  
-  if tf.gfile.Exists(FLAGS.job_dir):
-    tf.gfile.DeleteRecursively(FLAGS.job_dir)
-  tf.gfile.MakeDirs(FLAGS.job_dir)
-  
+  print(os.environ["TF_CONFIG"])
+  fix_tf_config()  
+  print(os.environ["TF_CONFIG"])
   train_evaluate()
-  
 
+  
 if __name__ == '__main__':
   tf.app.run()
   
