@@ -29,3 +29,10 @@ mkdir Azure_AI_Infrastructure
 cd Azure_AI_Infrastructure
 git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
 ```
+
+## Log on to Jupyter Lab
+Use the browser to navigate to
+```
+https://<vm name>.<region name>.cloudapp.azure.com:8000
+```
+Follow the instructor to switch from Jupyter Notebook to Jupyter Lab
