@@ -170,9 +170,14 @@ az batchai job create \
   --cluster-name <Cluster name> \
   --config job.json
 ```
-## Monitor job
+## Monitor the job
+### List the jobs
 ```
 az batchai job list -o table
+```
+### Show the job's status
+```
+az batchai job show -n <Job name>
 ```
 
 ### List stdout and stderr output
@@ -192,7 +197,7 @@ az batchai job file stream \
 ### Use Azure portal
 You can also use Azure portal to monitor the job. 
 
-### Using Tensorboard
+### Use Tensorboard
 #### Mount a Tensorboard logdir folder
 ##### On Linux
 ```
