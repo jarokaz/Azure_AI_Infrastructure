@@ -4,6 +4,11 @@ The goal of this lab is to develop basic understanding of Azure Batch AI service
 
 Make sure you have activated conda environment created in the initial set up.
 
+## Login to your Azure subscription
+```
+az login
+```
+
 ## Register Batch AI resource providers
 Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
 ```
