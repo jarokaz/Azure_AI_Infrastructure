@@ -170,7 +170,7 @@ az batchai job create \
   --cluster-name <Cluster name> \
   --config job.json
 ```
-### Monitor job
+## Monitor job
 ```
 az batchai job list -o table
 ```
@@ -179,7 +179,6 @@ az batchai job list -o table
 ```
 az batchai job file list \
   --name <Job nme> \
-  --resource-group <Resource group name> \
   --output-directory-id stdouterr
 ```
 
@@ -187,23 +186,15 @@ az batchai job file list \
 ```
 az batchai job file stream \
   -n <Job name> \
-  -g <Resource group name> \
   -d stdouterr \
   -f <File to stream>
 ```
+### Use Azure portal
+You can also use Azure portal to monitor the job. 
 
-### Delete the job
-```
-az batchai job delete --name <Job name>
-```
-
-### Delete the  cluster
-```
-az batchai cluster delete --name <Cluster name>
-```
-## Using Tensorboard
-### Mount a Tensorboard logdir folder
-#### On Linux
+### Using Tensorboard
+#### Mount a Tensorboard logdir folder
+##### On Linux
 ```
 sudo mkdir /mnt/<Mount directory name>
 sudo mount -t cifs //<Storage account name>.file.core.windows.net/jkbaidemofs /mnt/<Mount directory name> -o vers=2.1,username=<Storage account name> ,password=<Storage account key>,dir_mode=0777,file_mode=0777,serverino
@@ -215,10 +206,22 @@ sudo apt-get update
 sudo apt-get install cifs-utils
 ```
 
-#### On Windows
+##### On Windows
 ```
 net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
 ```
+#### Start tensorboard
+Start `tensorboard` on your development VM using the following command
+```
+tensorboard --logdir=<jobdir on a mount point> --ip=<IP address>
+```
 
+
+### Terminate/Delete the job
+If you want to terminate or delet the job you can use the following commands
+```
+az batchai job terminate --name <Job name>
+az batchai job delete --name <Job name>
+```
 
 
