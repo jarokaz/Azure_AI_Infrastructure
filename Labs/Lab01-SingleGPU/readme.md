@@ -8,7 +8,10 @@ Make sure you have activated conda environment created in the initial set up.
 ```
 az login
 ```
-
+If you have multiple subscriptions set the right one with
+```
+az account set -s <Subscription ID>
+```
 ## Register Batch AI resource providers
 Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
 ```
