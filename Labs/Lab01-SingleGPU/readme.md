@@ -161,7 +161,7 @@ cd /mnt/batch/tasks/shared/LS_root/mounts
 
 ## Create a training job
 
-Walkthrough the JSON template file for job `job.json'`
+Walkthrough the job's python files and JSON template file for the job configuration `job.json'`
 
 ### Create job
 ```
