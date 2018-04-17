@@ -97,8 +97,8 @@ az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
   --image UbuntuLTS \
-  --min 1 \
-  --max 1 \
+  --min 3 \
+  --max 3 \
   --storage-account-name <Storage account name> \
   --afs-name <File share name> \
   --afs-mount-path external \
