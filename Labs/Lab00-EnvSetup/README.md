@@ -1,3 +1,4 @@
+
 # Workshop environment set up
 
 ### Provision Deep Learning Virtual Machine
@@ -22,7 +23,9 @@ pip install azure-cli
 ## Clone the workshop github site
 ```
 cd
-mkdir repos/Azure_AI_Infrastructure
-cd repos/Azure_AI_Infrastructure
+mkdir repos
+cd repos
+mkdir Azure_AI_Infrastructure
+cd Azure_AI_Infrastructure
 git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
 ```
