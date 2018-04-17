@@ -86,7 +86,7 @@ az storage file copy start-batch \
 
 ### Verify that files are in the right folders
 ```
-az storage file list --share-name <File share name> --path scripts -o table
+az storage file list --share-name <File share name> --path scripts/lab01 -o table
 az storage file list --share-name <File share name> --path data -o table
 ```
 
