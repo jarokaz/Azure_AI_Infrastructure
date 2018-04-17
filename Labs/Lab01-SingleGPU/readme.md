@@ -32,7 +32,7 @@ We will use an Azure file share backed up by  Azure storage to store training da
 az storage account create --name <Storage Account Name> --sku Standard_LRS
 ```
 ### Set environmnent variables
-To simplify further commands we can set up environmental variables with the Storage account name and the access key
+To simplify further commands we can set up environmental variables with the storage account name and the access key
 ```
 az storage account keys list \
     -n <Storage account name> \
