@@ -9,7 +9,7 @@
         "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
         "inputDirectories": [{
             "id": "SCRIPTS",
-            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/scripts"
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/scripts/lab01"
         }, {
             "id": "DATASET",
             "path": "$AZ_BATCHAI_MOUNT_ROOT/external/data"                    
