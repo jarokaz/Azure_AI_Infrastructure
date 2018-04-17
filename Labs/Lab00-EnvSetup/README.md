@@ -25,9 +25,6 @@ pip install azure-cli
 ```
 cd
 mkdir repos
-cd repos
-mkdir Azure_AI_Infrastructure
-cd Azure_AI_Infrastructure
 git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
 ```
 
@@ -41,7 +38,6 @@ And restart `Jupyterhub`
 sudo service jupyterhub stop
 sudo service jupyterhub start
 ```
-
 
 
 ## Log on to Jupyter
