@@ -91,7 +91,7 @@ az storage file list --share-name <File share name> --path data -o table
 ```
 
 ## Prepare a GPU cluster
-### Create a single GPU VM node
+
 ```
 az batchai cluster create \
   --name  <Cluster name> \
