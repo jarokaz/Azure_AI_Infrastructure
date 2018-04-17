@@ -1,4 +1,5 @@
 
+
 # Workshop environment set up
 
 ### Provision Deep Learning Virtual Machine
@@ -29,6 +30,19 @@ mkdir Azure_AI_Infrastructure
 cd Azure_AI_Infrastructure
 git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
 ```
+
+## (Optional) Configure root directory for Jupyter Hub
+Modify `/etc/jupyterhub/jupyterhub_config.py` to point to a new root.
+```
+c.Spawner.notebook_dir = '~/repos`
+```
+Restart `Jupyterhub`
+```
+sudo service jupyterhub stop
+sudo service jupyterhub start
+```
+
+
 
 ## Log on to Jupyter Lab
 Use the browser to navigate to
