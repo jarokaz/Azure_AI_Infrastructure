@@ -49,4 +49,11 @@ Use the browser to navigate to
 ```
 https://<vm name>.<region name>.cloudapp.azure.com:8000
 ```
-Follow the instructor to switch from Jupyter Notebook to Jupyter Lab
+
+
+## Explore the workshop's repo
+Follow the instructor in exploring the workshop's repo. 
+
+TIP: Use the Jupyter Lab mode. It is great.
+
+
