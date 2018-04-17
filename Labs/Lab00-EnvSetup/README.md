@@ -3,7 +3,8 @@
 ## Provision Deep Learning Virtual Machine
 Use Azure Portal to provision a Deep Learning Virtual Machine. Follow the instructor.
 
-## Open the Tensorboard port
+## Configure ports for Tensorboard
+
 
 ## Create Anaconda environment
 ```
