@@ -32,11 +32,11 @@ git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
 ```
 
 ## (Optional) Configure root directory for Jupyter Hub
-Modify `/etc/jupyterhub/jupyterhub_config.py` to point to a new root.
+By default Jupyter Hub on DL VM starts Jupyter notebooks with the root directory set to `~/notebooks`. You can either move the workshop repo to this folder or alternatively reconfigure Jupyter Hub to use another root folder. To do that modify `/etc/jupyterhub/jupyterhub_config.py` to point to the new root folder.
 ```
 c.Spawner.notebook_dir = '~/repos`
 ```
-Restart `Jupyterhub`
+And restart `Jupyterhub`
 ```
 sudo service jupyterhub stop
 sudo service jupyterhub start
