@@ -1,17 +1,14 @@
-# Environment set up
+# Workshop environment set up
 
-## Provision development environment
-You have two options:
-* Provision Azure Deep Learning Virtual Machine
-* Utilize you local workstation as a development machine
+## Provision Deep Learning Virtual Machine
+Use Azure Portal to provision a Deep Learning Virtual Machine. Follow the instructor.
 
-### Provision Azure Deep Learning VM
-Follow the instructor
+## Open the Tensorboard port
 
-### Set up your local workstation
-* Install **Anaconda**
-* Install **Azure CLI 2.0**
-* Make sure you have access to `ssh` and an ability to generate `ssh` keys
+## Create Anaconda environment
+```
+
+```
 
 ## Clone this github site
 ```
