@@ -22,7 +22,7 @@ tf.app.flags.DEFINE_string('data_dir', '../../data/tiny-imagenet', "Data")
 tf.app.flags.DEFINE_float('lr', 0.0005, 'Learning rate')
 tf.app.flags.DEFINE_string('verbosity', 'INFO', "Control logging level")
 tf.app.flags.DEFINE_integer('num_parallel_calls', 12, 'Input parallelization')
-tf.app.flags.DEFINE_integer('throttle_secs', 120, "Evaluate every n seconds")
+tf.app.flags.DEFINE_integer('throttle_secs', 600, "Evaluate every n seconds")
                            
 # Global constants describing the Tiny Imagenet data set.
 INPUT_SHAPE = [None, 64, 64, 3]
@@ -122,7 +122,6 @@ def serving_input_fn():
 
 
 
-#from model import network_model
 from resnet import network_model
 
 def train_evaluate():
@@ -167,12 +166,12 @@ def train_evaluate():
   
 
 def main(argv=None):
+ 
+  if tf.gfile.Exists(FLAGS.job_dir):
+    tf.gfile.DeleteRecursively(FLAGS.job_dir)
+  tf.gfile.MakeDirs(FLAGS.job_dir)
   
- if tf.gfile.Exists(FLAGS.job_dir):
-   tf.gfile.DeleteRecursively(FLAGS.job_dir)
- tf.gfile.MakeDirs(FLAGS.job_dir)
-  
- train_evaluate()
+  train_evaluate()
   
 
 if __name__ == '__main__':
