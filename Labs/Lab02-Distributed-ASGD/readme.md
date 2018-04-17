@@ -29,7 +29,7 @@ az batchai job create \
   --cluster-name <Cluster name> \
   --config job.json
 ```
-### Monitor job
+## Monitor the job
 ```
 az batchai job list -o table
 ```
@@ -51,14 +51,6 @@ az batchai job file stream \
   -f <File to stream>
 ```
 
-### Delete the job
-```
-az batchai job delete --name <Job name>
-```
-
-### Delete the  cluster
-```
-az batchai cluster delete --name <Cluster name>
 ```
 ## Use Tensorboard 
 Use the same process as in Lab01
