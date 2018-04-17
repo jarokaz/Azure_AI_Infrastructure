@@ -1,4 +1,6 @@
-# Warm up exercise - running a training job on a single GPU
+# Running a training job on a single GPU
+
+The goal of this lab is to develop basic understanding of Azure Batch AI service and prepare Azure Batch AI environment for the labs focused on more advanced topics of distributed and parallel training.
 
 ## Register Batch AI resource providers
 Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
