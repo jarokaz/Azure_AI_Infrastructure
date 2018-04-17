@@ -5,7 +5,7 @@ Use Azure Portal to provision a Deep Learning Virtual Machine. Follow the instru
 
 ## Configure ports for Tensorboard
 
-
+![Tensorboard ports](images/tensorboard.jpg)
 ## Create Anaconda environment
 ```
 
