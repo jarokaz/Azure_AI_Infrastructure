@@ -38,7 +38,6 @@ az batchai job list -o table
 ```
 az batchai job file list \
   --name <Job nme> \
-  --resource-group <Resource group name> \
   --output-directory-id stdouterr
 ```
 
@@ -46,7 +45,6 @@ az batchai job file list \
 ```
 az batchai job file stream \
   -n <Job name> \
-  -g <Resource group name> \
   -d stdouterr \
   -f <File to stream>
 ```
