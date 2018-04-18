@@ -1,0 +1,28 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2017-09-01-preview/job.json",
+    "properties": {
+        "nodeCount": 1,
+        "customToolkitSettings": {
+            "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
+        },
+        "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+        "inputDirectories": [{
+            "id": "SCRIPTS",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/scripts/lab01"
+        }, {
+            "id": "DATASET",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/data"                    
+        }],
+        "outputDirectories": [{
+            "id": "JOBDIR",
+            "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+            "pathSuffix": "jobdir"
+        }],
+        "containerSettings": {
+            "imageSourceRegistry": {
+                "image": "tensorflow/tensorflow:1.6.0-gpu-py3"
+            }
+        }
+    }
+}

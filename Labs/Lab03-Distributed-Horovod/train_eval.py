@@ -24,7 +24,10 @@ tf.app.flags.DEFINE_integer('num_parallel_calls', 12, 'Input parallelization')
 tf.app.flags.DEFINE_integer('throttle_secs', 300, "Evaluate every n seconds")
                            
 
+
+
 from resnet import network_model
+import feed
 from feed import INPUT_NAME, IMAGE_SHAPE, NUM_CLASSES, input_fn, serving_input_fn
 
 def train_evaluate():

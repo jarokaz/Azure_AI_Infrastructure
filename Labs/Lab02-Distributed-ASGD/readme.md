@@ -16,6 +16,7 @@ Terminate/delete any jobs
 az storage directory create --share-name <File share> --name scripts/lab02
 az storage file upload --share-name <File share> --path scripts/lab02 --source train_eval.py
 az storage file upload --share-name <File share> --path scripts/lab02 --source resnet.py
+az storage file upload --share-name <File share> --path scripts/lab02 --source feed.py
 ```
 
 ## Create a training job
