@@ -35,7 +35,6 @@ To simplify further commands we can set up environmental variables with the stor
 ```
 az storage account keys list \
     -n <Storage account name> \
-    -g <Resource group name> \
     -o table
 export AZURE_STORAGE_ACCOUNT=<Storage account name>
 export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
