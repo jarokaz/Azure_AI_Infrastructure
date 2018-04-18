@@ -149,7 +149,7 @@ az batchai cluster list -o table
 
 ### List ssh connection info for the nodes in a cluster
 ```
-az batchai cluster list-nodes -n <Cluster name> -g <Resource group name> -o table
+az batchai cluster list-nodes -n <Cluster name> -o table
 ```
 
 ### Explore the cluster's node
