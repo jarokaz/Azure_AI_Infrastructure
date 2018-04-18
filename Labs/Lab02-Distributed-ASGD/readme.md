@@ -1,4 +1,4 @@
-# Running a training job on a cluster of GPUs using asynchronoues SGD in tensorflow
+# Running a training job on a cluster of GPUs using asynchronoues SGD
 
 
 ### Get cluster status
