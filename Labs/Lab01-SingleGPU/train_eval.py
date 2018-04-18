@@ -22,7 +22,7 @@ tf.app.flags.DEFINE_string('data_dir', '../../data/tiny-imagenet', "Data")
 tf.app.flags.DEFINE_float('lr', 0.0005, 'Learning rate')
 tf.app.flags.DEFINE_string('verbosity', 'INFO', "Control logging level")
 tf.app.flags.DEFINE_integer('num_parallel_calls', 12, 'Input parallelization')
-tf.app.flags.DEFINE_integer('throttle_secs', 600, "Evaluate every n seconds")
+tf.app.flags.DEFINE_integer('throttle_secs', 300, "Evaluate every n seconds")
                            
 # Global constants describing the Tiny Imagenet data set.
 INPUT_SHAPE = [None, 64, 64, 3]
@@ -131,7 +131,7 @@ def train_evaluate():
   model = network_model(CROPPED_IMAGE_SHAPE, INPUT_NAME, NUM_CLASSES)
   loss = 'categorical_crossentropy'
   metrics = ['accuracy']
-  opt = Adam(lr = FLAGS.lr)
+  opt = Adadelta()
   model.compile(loss=loss, optimizer=opt, metrics=metrics)
 
   #Convert the the keras model to tf estimator

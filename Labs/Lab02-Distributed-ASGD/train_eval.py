@@ -166,6 +166,12 @@ def train_evaluate():
   tf.estimator.train_and_evaluate(estimator, train_spec, eval_spec)
   
 def fix_tf_config():
+  """ Azure Batch AI does not properly set TF_CONFIG environment variable
+  as required by new versions of Tensorflow and train_and_evaluate function 
+  used in this solution. This function modifies TF_CONFIG so it works with
+  train_and_evaluate
+  """
+    
   tf_config = json.loads(os.environ["TF_CONFIG"])
   cluster = tf_config['cluster']
   task = tf_config['task']
@@ -181,9 +187,8 @@ def fix_tf_config():
 
 def main(argv=None):
  
-  print(os.environ["TF_CONFIG"])
   fix_tf_config()  
-  print(os.environ["TF_CONFIG"])
+
   train_evaluate()
 
   
