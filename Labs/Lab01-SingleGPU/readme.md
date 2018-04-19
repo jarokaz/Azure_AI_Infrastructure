@@ -46,7 +46,7 @@ export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
 ### Create a file share
 ```
 az storage share create \
-    --account-name <Storage account Name> 
+    --account-name <Storage account Name>
     --name <File share name>
 ```
 
@@ -55,11 +55,11 @@ az storage share create \
 az storage directory create \
     --share-name  <File share name>
     --name data
-    
+
 az storage directory create \
     --share-name  <File share name>
     --name scripts
-    
+
 az storage directory create \
     --share-name  <File share name>
     --name scripts/lab01
@@ -121,8 +121,8 @@ az batchai cluster create \
   --afs-name <File share name> \
   --afs-mount-path external \
   --ssh-key ~/.ssh/id_rsa.pub \
-  --user-name $USER 
-  
+  --user-name $USER
+
 ```
 To generate `ssh` keys you can use an app of your choice including ssh-keygen:
 ```
@@ -141,7 +141,7 @@ az batchai cluster create \
   --afs-name <File share name> \
   --afs-mount-path external \
   --generate-ssh-keys \
-  --user-name $USER 
+  --user-name $USER
 ```
 
 ### Get cluster status
@@ -197,7 +197,7 @@ az batchai job file stream \
   -f <File to stream>
 ```
 ### Use Azure portal
-You can also use Azure portal to monitor the job. 
+You can also use Azure portal to monitor the job.
 
 ### Use Tensorboard
 #### Mount a Tensorboard logdir folder
@@ -218,7 +218,12 @@ sudo apt-get install cifs-utils
 net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
 ```
 #### Start tensorboard
-Start `tensorboard` on your development VM using the following command
+Start `tensorboard` on your development VM using the following information
+
+--logdir : Use the path of the log directory on your mount point
+Example:  /mnt/<filesharename>/<guid>/<batchai cluster name>/<log directory name>
+
+--ip :  Use ``` ifconfig ``` to get the IP address of the workstation
 ```
 tensorboard --logdir=<jobdir on a mount point> --ip=<IP address>
 ```
@@ -230,5 +235,3 @@ If you want to terminate or delet the job you can use the following commands
 az batchai job terminate --name <Job name>
 az batchai job delete --name <Job name>
 ```
-
-
