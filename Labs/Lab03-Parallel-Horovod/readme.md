@@ -35,7 +35,7 @@ az storage file list --share-name <File share name> --path data -o table
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC12 \
-  --image UbuntuLTS \
+  --image UbuntuDSVM \
   --min 1 \
   --max 1 \
   --storage-account-name <Storage account name> \
