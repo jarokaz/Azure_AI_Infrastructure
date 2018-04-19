@@ -1,3 +1,0 @@
-export AZURE_STORAGE_ACCOUNT=jkbaist
-export AZURE_STORAGE_ACCESS_KEY=Qb/6te47fmumDdtXr02dCMpoXwVC+wEDufJMfrAjJ3XRGgRzo9wvMr3kLR7Oeg8Q+pApDsTaJhUiyQCyU89Wgw==
-
