@@ -228,7 +228,11 @@ Example:  /mnt/<filesharename>/<guid>/<batchai cluster name>/<job directory name
 ```
 tensorboard --logdir=<jobdir on a mount point> --ip=<IP address>
 ```
+Launch Tensorboard in a browser using the following URL format
 
+```
+http://<workstation dns name>.<region>.cloudapp.net:6006
+```
 
 ### Terminate/Delete the job
 If you want to terminate or delet the job you can use the following commands
