@@ -224,7 +224,7 @@ Start `tensorboard` on your development VM using the following information
 ```
 Example:  /mnt/<filesharename>/<guid>/<batchai cluster name>/<job directory name>
 ```
---ip :  Use ``` ifconfig ``` to get the IP address of the workstation
+--ip :  Type ``` ifconfig ``` to get the IP address of the workstation
 ```
 tensorboard --logdir=<jobdir on a mount point> --ip=<IP address>
 ```
