@@ -118,12 +118,11 @@ def convolutional_block(X, f, filters, stage, block, s = 2):
     return X
 
 
-def network_model(input_shape, input_name, num_classes):
+def network_model(inputs, num_classes):
     
-    X_input=Input(shape=input_shape, name=input_name)
    
     # Stage 1
-    X = Conv2D(64, (7, 7), strides = (1, 1), padding='same', name = 'conv1', kernel_initializer = glorot_uniform(seed=0))(X_input)
+    X = Conv2D(64, (7, 7), strides = (1, 1), padding='same', name = 'conv1', kernel_initializer = glorot_uniform(seed=0))(inputs)
     X = BatchNormalization(axis = 3, name = 'bn_conv1')(X)
     X = Activation('relu')(X)
     X = MaxPooling2D((3, 3), strides=(1, 1), padding='same')(X)
@@ -159,7 +158,7 @@ def network_model(input_shape, input_name, num_classes):
     X = Flatten()(X)
     X = Dense(num_classes, activation='softmax', name='fc' + str(num_classes), kernel_initializer = glorot_uniform(seed=0))(X)
     
-    model = Model(inputs=X_input, outputs=X, name='Resnet50')
+    model = X
     
     return  model 
     
