@@ -220,9 +220,9 @@ net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share na
 #### Start tensorboard
 Start `tensorboard` on your development VM using the following information
 
---logdir : Use the path of the log directory on your mount point
+--logdir : Use the path of the job directory on your mount point
 ```
-Example:  /mnt/<filesharename>/<guid>/<batchai cluster name>/<log directory name>
+Example:  /mnt/<filesharename>/<guid>/<batchai cluster name>/<job directory name>
 ```
 --ip :  Use ``` ifconfig ``` to get the IP address of the workstation
 ```
