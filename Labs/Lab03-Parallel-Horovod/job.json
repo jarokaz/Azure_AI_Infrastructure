@@ -4,7 +4,7 @@
     "properties": {
         "nodeCount": 1,
         "customToolkitSettings": {
-            "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
+            "commandLine": "mpirun -np 2 -H localhost -oversubscribe -bind-to none -map-by slot -mca pml ob1 -mca btl ^openib python $AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
         },
         "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
         "inputDirectories": [{
@@ -19,10 +19,5 @@
             "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
             "pathSuffix": "jobdir"
         }],
-        "containerSettings": {
-            "imageSourceRegistry": {
-                "image": "tensorflow/tensorflow:1.6.0-gpu-py3"
-            }
-        }
-    }
+   }
 }
