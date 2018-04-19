@@ -96,11 +96,6 @@ def fix_tf_config():
     
 
 def main(argv=None):
- 
-  if tf.gfile.Exists(FLAGS.job_dir):
-    tf.gfile.DeleteRecursively(FLAGS.job_dir)
-  tf.gfile.MakeDirs(FLAGS.job_dir)
-  
   fix_tf_config()
 
   train_evaluate()
