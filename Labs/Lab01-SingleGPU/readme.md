@@ -80,6 +80,7 @@ az storage file copy start-batch \
   --destination-path data \
   --destination-share <File share name> \
   --source-account-name azaiworkshopst \
+  --source-account-key VDMMkPm2iXEQrOqN8nmdYu6qo7S2dysN6//i5u7ml3HGLK4D24pfPJfjcx1ByDssGe1pbqnqGFJHesWsNCOnQg== \
   --source-container tinyimagenet \
   --pattern '*' \
   --dryrun
