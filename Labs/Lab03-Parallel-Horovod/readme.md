@@ -67,9 +67,9 @@ az storage directory create \
 ### Copy training scripts
 ```
 cd <Repo root>/Azure_AI_Infrastructure/labs/Lab01-SingleGPU
-az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab01
-az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab01
-az storage file upload --share-name <File share name> --source feed.py --path scripts/lab01
+az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab03
+az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab03
+az storage file upload --share-name <File share name> --source feed.py --path scripts/lab03
 ```
 
 ### Copy training data
