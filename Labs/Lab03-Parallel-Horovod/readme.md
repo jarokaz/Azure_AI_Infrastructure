@@ -25,7 +25,7 @@ az storage file upload --share-name <File share name> --source feed.py --path sc
 
 ### Verify that files are in the right folders
 ```
-az storage file list --share-name <File share name> --path scripts/lab01 -o table
+az storage file list --share-name <File share name> --path scripts/lab03 -o table
 az storage file list --share-name <File share name> --path data -o table
 ```
 
