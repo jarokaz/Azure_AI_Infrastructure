@@ -105,7 +105,7 @@ az batchai cluster create \
   --afs-name <File share name> \
   --afs-mount-path external \
   --user-name <User name> \
-  --passwor <Password>
+  --password <Password>
 ```
 
 It is recommended, although not required, to use ssh keys instead of passwords
