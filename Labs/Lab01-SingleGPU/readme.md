@@ -4,38 +4,6 @@ The goal of this lab is to develop basic understanding of Azure Batch AI service
 
 **Follow the instructor**. The instructor will explain each step and deep dive into the algorithm used in the lab.
 
-## Create the workshop's resource group and storage
-All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
-
-The shared storage resources created during this labe will also be utilized by the following labs. 
-
-### Login to your Azure subscription
-```
-az login
-```
-If you have multiple subscriptions set the right one with
-```
-az account set -s <Subscription ID>
-```
-### Register Batch AI resource providers
-Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
-```
-az provider register -n Microsoft.BatchAI
-az provider register -n Microsoft.Batch
-```
-### Create a resource group
-
-```
-az group create --name <Resource group name> --location westus2
-az configure --defaults group=<Resource group Name>
-az configure --defaults location=westus2
-```
-
-### Create a storage account
-We will use an Azure file share backed up by  Azure storage to store training data, training scripts, training logs, checkpoints, and the final model.
-```
-az storage account create --name <Storage Account Name> --sku Standard_LRS
-```
 ### Set environmnent variables
 To simplify further commands we can set up environmental variables with the storage account name and the access key
 ```
@@ -46,50 +14,19 @@ export AZURE_STORAGE_ACCOUNT=<Storage account name>
 export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
 ```
 
-### Prepare Azure file share
-All labs in the workshop utilize Azure File Shares as shared storage. As noted by the instructor other shared storage options (e.g. NFS and distributed file systems) may perform better for really large data sets.
-
-#### Create a file share
+### Create a directory for the lab's scripts
 ```
-az storage share create \
-    --account-name <Storage account Name> 
-    --name <File share name>
-```
-
-#### Create data and scripts directories in the share
-```
-az storage directory create \
-    --share-name  <File share name>
-    --name data
-    
-az storage directory create \
-    --share-name  <File share name>
-    --name scripts
-    
 az storage directory create \
     --share-name  <File share name>
     --name scripts/lab01
 ```
+
 #### Copy training scripts
 ```
 cd <Repo root>/Azure_AI_Infrastructure/Labs/Lab01-SingleGPU
 az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab01
 az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab01
 az storage file upload --share-name <File share name> --source feed.py --path scripts/lab01
-```
-
-#### Copy training data
-The training data in the TFRecords format have been uploaded to a public container in Azure storage. Use the following command to copy the files to your file share. The `--dryrun` option allows you to verify the configuration before starting the asynchronous copy operation.
-
-```
-az storage file copy start-batch \
-  --destination-path data \
-  --destination-share <File share name> \
-  --source-account-name azaiworkshopst \
-  --source-account-key VDMMkPm2iXEQrOqN8nmdYu6qo7S2dysN6//i5u7ml3HGLK4D24pfPJfjcx1ByDssGe1pbqnqGFJHesWsNCOnQg== \
-  --source-container tinyimagenet \
-  --pattern '*' \
-  --dryrun
 ```
 
 #### Verify that files are in the right folders
