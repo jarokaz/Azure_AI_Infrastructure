@@ -38,3 +38,25 @@ Install `Azure CLI 2.0`
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
 
+## Cloning the workshop repo
+
+Use the following command to clone the workshop repo:
+
+``` 
+git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
+```
+
+You can clone the repo in an arbitrary folder structure; however when using Windows Subsystem for Linux we highly recommend cloning the repo in the subfolder of a drive visible to Windows. For example:
+```
+/mnt/c
+```
+This way you will be able to view/edit files using both Windows and Linux editors.
+
+
+You are now ready to move to Lab 1.
+
+
+
+
+
+
