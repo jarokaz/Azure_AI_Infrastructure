@@ -2,54 +2,27 @@
 
 # Workshop environment set up
 
-### Provision Deep Learning Virtual Machine
-Use Azure Portal to provision a Deep Learning Virtual Machine. Follow the instructor. Don't forget to change a DNS name.
+To participate in the workshop you need a workstation with  `ssh`, `git`, text editor and the latest version of `Azure CLI 2.0`.
 
-### Configure ports for Tensorboard
+## Installing pre-requisites on Windows 10
 
-![Tensorboard ports](images/tensorboard.jpg)
-### Create Anaconda environment
-Use ssh to logon to the virtual machine and create a new Anaconda environment
-```
-ssh <user name>@<vm name>.<region>.cloudapp.azure.com
-conda create -n bai python=3.5 anaconda
-source activate bai
-```
-### Install azure-cli 
-Make sure you have activated the new environment
-```
-pip install azure-cli
-```
+Although you can use any `ssh` and `git` clients, and you can install `Azure CLI` on Windows command prompt we highly recommend using  Ubuntu on Windows Subsystem for Linux.
 
-## Clone the workshop github site
-```
-cd
-mkdir repos
-git clone https://github.com/jarokaz/Azure_AI_Infrastructure.git
-```
+Follow this instructions to install Windows Subsystem for Linux and Ubuntu distributions
 
-## (Optional) Configure root directory for Jupyter Hub
-By default Jupyter Hub on DL VM starts Jupyter notebooks with the root directory set to `~/notebooks`. You can either move the workshop repo to this folder or alternatively reconfigure Jupyter Hub to use another root folder. To do that modify `/etc/jupyterhub/jupyterhub_config.py` to point to the new root folder.
-```
-c.Spawner.notebook_dir = '~/repos`
-```
-And restart `Jupyterhub`
-```
-sudo service jupyterhub stop
-sudo service jupyterhub start
-```
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+The next step is to install `Azure CLI` for Ubuntu.
+
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
+
+If you choose to use Window command prompt follow this instructions to install `Azure CLI`
+
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
 
 
-## Log on to Jupyter
-Use the browser to navigate to
-```
-https://<vm name>.<region name>.cloudapp.azure.com:8000
-```
 
+## Installing pre-requisites Mac OS
 
-## Explore the workshop's repo
-Follow the instructor in exploring the workshop's repo. 
-
-TIP: Use the Jupyter Lab mode. It is great.
 
 
