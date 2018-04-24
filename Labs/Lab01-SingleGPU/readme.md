@@ -7,11 +7,6 @@ The goal of this lab is to develop basic understanding of Azure Batch AI service
 ## Create the workshop's resource group and storage
 All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
 
-You can use a variety of tools and APIs to manage Azure resources, including Azure Portal and PowerShell. In this workshop, we decided to use Azure CLI. 
-
-When going through the labs you will be manually executing sequences of Azure CLI commands. It is important to know that in production environments you should script and parameterize repeatable workflows using a scripting environment of your choice. E.g. bash, python, etc.
-
-
 
 ## Login to your Azure subscription
 ```
