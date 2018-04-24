@@ -51,8 +51,77 @@ You can clone the repo into an arbitrary folder structure; however when using Wi
 ```
 This way you will be able to view/edit files using both Windows and Linux editors.
 
+## Create the workshop's resource group and storage
+All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
 
-You are now ready to move to Lab 1.
+The shared storage resources created during this labe will also be utilized by the following labs. 
+
+### Login to your Azure subscription
+```
+az login
+```
+If you have multiple subscriptions set the right one with
+```
+az account set -s <Subscription ID>
+```
+### Register Batch AI resource providers
+Make sure that Batch AI resource providers are registered for you subscription. This is a one-time configuration.
+```
+az provider register -n Microsoft.BatchAI
+az provider register -n Microsoft.Batch
+```
+### Create a resource group
+
+```
+az group create --name <Resource group name> --location westus2
+az configure --defaults group=<Resource group Name>
+az configure --defaults location=westus2
+```
+
+### Create a storage account
+We will use an Azure file share backed up by  Azure storage to store training data, training scripts, training logs, checkpoints, and the final model.
+```
+az storage account create --name <Storage Account Name> --sku Standard_LRS
+```
+
+```
+
+### Prepare Azure file share
+All labs in the workshop utilize Azure File Shares as shared storage. As noted by the instructor other shared storage options (e.g. NFS and distributed file systems) may perform better for really large data sets.
+
+#### Create a file share
+```
+az storage share create \
+    --account-name <Storage account Name> 
+    --name <File share name>
+```
+
+#### Create data and scripts directories in the share
+```
+az storage directory create \
+    --share-name  <File share name>
+    --name data
+    
+az storage directory create \
+    --share-name  <File share name>
+    --name scripts
+```
+
+#### Copy training data
+The training data in the TFRecords format have been uploaded to a public container in Azure storage. Use the following command to copy the files to your file share. The `--dryrun` option allows you to verify the configuration before starting the asynchronous copy operation.
+
+```
+az storage file copy start-batch \
+  --destination-path data \
+  --destination-share <File share name> \
+  --source-account-name azaiworkshopst \
+  --source-account-key VDMMkPm2iXEQrOqN8nmdYu6qo7S2dysN6//i5u7ml3HGLK4D24pfPJfjcx1ByDssGe1pbqnqGFJHesWsNCOnQg== \
+  --source-container tinyimagenet \
+  --pattern '*' \
+  --dryrun
+```
+
+
 
 
 
