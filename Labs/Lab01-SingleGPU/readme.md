@@ -2,9 +2,15 @@
 
 The goal of this lab is to develop basic understanding of Azure Batch AI service and prepare Azure Batch AI environment for the labs focused on more advanced topics of distributed and parallel training.
 
-Make sure you have activated the conda environment created in Lab00.
+**Follow the instructor**. The instructor will explain each step and deep dive into the algorithm used in the lab.
 
-Follow the instructor. The instructor will explain each step and deep dive into the algorithm used in the lab.
+## Create the workshop's resource group and storage
+All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
+
+You can use a variety of tools and APIs to manage Azure resources, including Azure Portal and PowerShell. In this workshop, we decided to use Azure CLI. 
+
+When going through the labs you will be manually executing sequences of Azure CLI commands. It is important to know that in production environments you should script and parameterize repeatable workflows using a scripting environment of your choice. E.g. bash, python, etc.
+
 
 
 ## Login to your Azure subscription
@@ -22,7 +28,7 @@ az provider register -n Microsoft.BatchAI
 az provider register -n Microsoft.Batch
 ```
 ## Create a resource group
-Batch AI clusters and jobs are Azure resources and must be placed in an Azure resource group
+
 ```
 az group create --name <Resource group name> --location westus2
 az configure --defaults group=<Resource group Name>
