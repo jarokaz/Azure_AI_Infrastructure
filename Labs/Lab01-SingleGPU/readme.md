@@ -2,7 +2,9 @@
 
 The goal of this lab is to develop basic understanding of Azure Batch AI service and prepare Azure Batch AI environment for the labs focused on more advanced topics of distributed and parallel training.
 
-Make sure you have activated the conda environment created in Lab00
+Make sure you have activated the conda environment created in Lab00.
+
+Follow the instructor. The instructor will explain each step and deep dive into the algorithm used in the lab.
 
 
 ## Login to your Azure subscription
