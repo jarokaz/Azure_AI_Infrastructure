@@ -17,5 +17,5 @@ All labs utilize TensorFlow. ResNet 50 is defined in tf.keras. Training regimes 
 
 *You can use a variety of tools and APIs to manage Azure resources, including Azure Portal and PowerShell. In this workshop, we decided to use Azure CLI.* 
 
-*When going through the labs you will be manually executing sequences of Azure CLI commands. It is important to note that in production environments you should script and parameterize repeatable workflows using a scripting environment of your choice. E.g. bash, python, etc.*
+*When going through the labs you will be manually executing sequences of Azure CLI commands. It is important to note that in production environments **you should script and parameterize** repeatable workflows using a scripting environment of your choice. E.g. bash, python, etc.*
 
