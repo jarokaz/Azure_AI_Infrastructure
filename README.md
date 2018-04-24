@@ -17,5 +17,11 @@ When run in a classroom setting a typical agenda goes as follows:
   * Lab 4 - Distributed training using **synchronous Allreduce** approach
   
   
+## Repo folder structure
+- DLCheetsheets - The Jupyter notebook summarizing key Deep Learning concepts. 
+- Presentations - PDF copies of the presentations used by an instructor to do an overview of AI Infrastructure services
+- Labs - Hands on labs - the gist of the workshop
+- Utils - Python scripts to pre-process the CIFAR10 and TINY-IMAGENET data sets used during the workshop. The pre-processed data sets have been upload to Azure storage public containers so the scripts are for reference.
+
 
 
