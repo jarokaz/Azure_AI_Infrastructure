@@ -15,3 +15,7 @@ The choice of ResNet 50 and Tiny Imagenet attempts to strike a balance between n
 
 All labs utilize TensorFlow. ResNet 50 is defined in tf.keras. Training regimes are defined using tf.Estimator API. Lab 3 and 4 utilize Uber's Horovod API. In future we may extend the labs to other deep learning frameworks.
 
+You can use a variety of tools and APIs to manage Azure resources, including Azure Portal and PowerShell. In this workshop, we decided to use Azure CLI. 
+
+When going through the labs you will be manually executing sequences of Azure CLI commands. It is important to note that in production environments you should script and parameterize repeatable workflows using a scripting environment of your choice. E.g. bash, python, etc.
+
