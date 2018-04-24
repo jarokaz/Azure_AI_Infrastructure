@@ -110,12 +110,15 @@ az storage directory create \
 #### Copy training data
 The training data in the TFRecords format have been uploaded to a public container in Azure storage. Use the following command to copy the files to your file share. The `--dryrun` option allows you to verify the configuration before starting the asynchronous copy operation.
 
+The instructor will provide you with <Storage account access key>
+    
+
 ```
 az storage file copy start-batch \
   --destination-path data \
   --destination-share <File share name> \
   --source-account-name azaiworkshopst \
-  --source-account-key VDMMkPm2iXEQrOqN8nmdYu6qo7S2dysN6//i5u7ml3HGLK4D24pfPJfjcx1ByDssGe1pbqnqGFJHesWsNCOnQg== \
+  --source-account-key <Storage account access key> \
   --source-container tinyimagenet \
   --pattern '*' \
   --dryrun
