@@ -16,8 +16,8 @@ FLAGS = tf.app.flags.FLAGS
 # Default global parameters
 tf.app.flags.DEFINE_integer('batch_size', 32, "Number of images per batch")
 tf.app.flags.DEFINE_integer('max_steps', 100000, "Number of steps to train")
-tf.app.flags.DEFINE_string('job_dir', '../../jobdir/run1', "Checkpoints")
-tf.app.flags.DEFINE_string('data_dir', '../../data/tiny-imagenet', "Data")
+tf.app.flags.DEFINE_string('job_dir', '../../../jobdir/run1', "Checkpoints")
+tf.app.flags.DEFINE_string('data_dir', '../../../data/tiny-imagenet', "Data")
 tf.app.flags.DEFINE_float('lr', 0.0005, 'Learning rate')
 tf.app.flags.DEFINE_string('verbosity', 'INFO', "Control logging level")
 tf.app.flags.DEFINE_integer('num_parallel_calls', 12, 'Input parallelization')
