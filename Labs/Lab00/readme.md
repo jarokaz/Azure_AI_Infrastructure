@@ -67,27 +67,35 @@ az configure --defaults group=<resource group Name>
 az configure --defaults location=<location>
 ```
 
-### Create a storage account and azure file share
+### Create a storage account 
 We will use an Azure file share backed up by  Azure storage to store training data, training scripts, training logs, checkpoints, and the final model.
 ```
-az storage account create --name <storage Account Name> --sku Standard_LRS
+az storage account create --name <storage account name> --sku Standard_LRS
 ```
 All labs in the workshop utilize Azure File Shares as shared storage. As noted by the instructor other shared storage options (e.g. NFS and distributed file systems) may perform better for really large data sets.
 
+To avoid entering storage account name and storage account keys on each command we can store them in an environmental variable
+```
+az storage account show-connection-string -n <storage account name>
+export AZ_STORAGE_CONNECTION_STRING=<connection string>
+```
+
+
+### Create an azure file share
 ```
 az storage share create \
-    --account-name <Storage account Name> 
+    --account-name <storage account Name> 
     --name <File share name>
 ```
 
 #### Create data and scripts directories in the share
 ```
 az storage directory create \
-    --share-name  <File share name>
+    --share-name  <file share name>
     --name data
     
 az storage directory create \
-    --share-name  <File share name>
+    --share-name  <file share name>
     --name scripts
 ```
 
