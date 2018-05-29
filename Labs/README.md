@@ -7,11 +7,19 @@ The hands-on labs are the gist of the workshop. The goal of the labs is to devel
 - Lab 4 - the fourth lab brings together skills developed in the previous labs into the most complex and powerfull scenario - multiple nodes with multiple GPUs.
 - Lab 5 - demonstrates how to deploy a deep learning model using Azure Machine Learning Model Management service.
 
-As noted, all labs use the same data set and model. The model is based on a ResNet 50 architecture as described in the seminal paper *Deep Residual Learning for Image Recognition* (Keiming He et al., 2015).  As described in the paper, the model was designed around 224x224x3 inputs.
+All labs use the same data set and model. The model is based on a ResNet 50 architecture as described in the seminal paper *Deep Residual Learning for Image Recognition* (Keiming He et al., 2015).  As described in the paper, the model was designed around 224x224x3 inputs.
 
-The data set utilized in the workshop is Aerial Imagery.
+The model is trained to classify how a parcel of land has been used -- e.g., whether it is developed, cultivated, or forested.  Aerial image classification has many important applications in industry and government, including:
 
-The choice of ResNet 50 and Tiny Imagenet attempts to strike a balance between non-trivial and feasible scenarios. We wanted to go beyond a toy scenario (E.g. a simple convolutional net and MNIST) to demonstrate the value of powerful compute services in Azure. At the same time we wanted to limit computational complexity due time and budget constraints of the workshop.
+- Enforcing tax codes (cf. identification of home pools in Greece)
+- Monitoring agricultural crop performance
+- Quantifying the impact of climate change on natural resources
+- Property value estimation and feature tracking for marketing purposes
+- Geopolitical surveillance
+
+We use aerial imagery provided by the U.S. National Agriculture Imagery Program, and land use labels from the National Land Cover Database. 
+
+The choice of ResNet 50 and aerial imagery attempts to strike a balance between non-trivial and feasible scenarios. We wanted to go beyond a toy scenario (E.g. a simple convolutional net and MNIST) to demonstrate the value of powerful compute services in Azure. At the same time we wanted to limit computational complexity due time and budget constraints of the workshop.
 
 All labs utilize TensorFlow and Keras. Lab 2 and 3 utilize Uber's Horovod API. In future we may extend the labs to other deep learning frameworks.
 
