@@ -10,23 +10,24 @@ Azure AI infrastructure provides virtually limitless scale to train and operatio
 * Introductions
 * Azure Cloud AI Platform Overview
 * Hands-on Labs
+  * Lab 0 - Environment set up
   * Lab 1 - Single GPU training
   * Lab 2 - Parallel training on a multi GPU VM 
   * Lab 3 - Distributed training on a cluster of GPU VMs 
   * Lab 4 - Model operationalization on Azure Kubernetis Server
-  * Lab 5 - Model operationalizetion on Azure FPGA service - coming
+  * Lab 5 - Model operationalizetion on Azure FPGA service 
   
   
 ## Repo folder structure
 - DLCheetsheets - The Jupyter notebook summarizing key Deep Learning concepts. 
 - Presentations - Azure Cloud AI Platform Overview presentation PDF
 - Labs - Hands on labs - the gist of the workshop
-- Utils - Python scripts to pre-process the CIFAR10 and TINY-IMAGENET data sets used during the workshop. The pre-processed data sets have been upload to Azure storage public containers so the scripts are for reference.
+
 
 ## Workshop environment set up
-To participate in the workshop you need a workstation with  `ssh`, `git`, text editor and the latest version of `Azure CLI 2.0`.
+To participate in the workshop you need a workstation with  `ssh`, `git`, text editor and the latest version of `Azure CLI 2.0`. 
 
-## Install pre-requisites on Windows 10
+### Install pre-requisites on Windows 10
 
 Although you can use any `ssh` and `git` clients, and you can install `Azure CLI` on Windows command prompt, we highly recommend using  Ubuntu on Windows Subsystem for Linux.
 
@@ -42,7 +43,7 @@ If you choose to use Window command prompt follow this instructions to install `
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest
 
-## Install pre-requisites on Mac OS
+### Install pre-requisites on Mac OS
 
 Install Homebrew
 
@@ -57,8 +58,12 @@ Install `Azure CLI 2.0`
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
 
-## Azure Cloud Shell
-Alternatively, I you cannot or don't want to install the required pre-requisties on your workstation, you can use Azure Cloud Shell. 
+### Azure Cloud Shell
+Azure Cloud Shell includes all pre-requisites required for the workshop.
+
+### Azure Data Science VM
+Azure Data Science Virtual Machine includes all pre-requisites. 
+
 
 ## Create the workshop's resource group and storage
 All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
