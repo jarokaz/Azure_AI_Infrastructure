@@ -34,15 +34,25 @@ Install `Azure CLI 2.0`
 
 https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cli-latest
 
-### Azure Cloud Shell
-Azure Cloud Shell includes all pre-requisites required for the workshop.
 
 ### Azure Data Science VM
-Azure Data Science Virtual Machine includes all pre-requisites. To make sure that you have the latest version of azure-cli we recommend to do the fresh install in the dedicated conda environment
+Azure Data Science Virtual Machine comes with azure-cli pre-installed. To make sure that you have the latest version of azure-cli we recommend to do the fresh install in the dedicated conda environment
 ```
 conda create -n <environment name> python=3.6 
 source activate <environment name>
 pip install azure-cli
+```
+To install `azcopy`
+
+```
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod/ xenial main" > azure.list
+sudo cp ./azure.list /etc/apt/sources.list.d/
+apt-key adv --keyserver packages.microsoft.com --recv-keys B02C46DF417A0893
+```
+
+```
+sudo apt-get update
+sudo apt-get install azcopy
 ```
 
 
