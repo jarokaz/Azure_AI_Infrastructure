@@ -38,7 +38,11 @@ https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos?view=azure-cl
 Azure Cloud Shell includes all pre-requisites required for the workshop.
 
 ### Azure Data Science VM
-Azure Data Science Virtual Machine includes all pre-requisites. 
+Azure Data Science Virtual Machine includes all pre-requisites. To make sure that you have the latest version of azure-cli we recommend to do the fresh install in the dedicated conda environment
+```
+conda create -n <environment name> python=3.6 
+pip install azure-cli
+```
 
 
 ## Create the workshop's resource group and storage
