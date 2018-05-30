@@ -1,0 +1,31 @@
+
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2017-09-01-preview/job.json",
+    "properties": {
+        "nodeCount": 1,
+	"jobPreparation": {
+	    "commandLine": "apt update; apt install mpi-default-dev mpi-default-bin -y; pip install horovod"
+	},
+        "customToolkitSettings": {
+            "commandLine": "mpirun -np 2 -mca btl_tcp_if_exclude docker0,lo -allow-run-as-root -H localhost -oversubscribe  python $AZ_BATCHAI_INPUT_SCRIPTS/train_eval.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
+        },
+        "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+        "inputDirectories": [{
+            "id": "SCRIPTS",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/scripts/lab03"
+        }, {
+            "id": "DATASET",
+            "path": "$AZ_BATCHAI_MOUNT_ROOT/external/data"                    
+        }],
+        "outputDirectories": [{
+            "id": "JOBDIR",
+            "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+            "pathSuffix": "jobdir"
+        }],
+	"containerSettings": {
+            "imageSourceRegistry": {
+	         "image": "tensorflow/tensorflow:1.6.0-gpu"
+	     }
+	}
+   }
+}
