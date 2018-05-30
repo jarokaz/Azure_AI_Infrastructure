@@ -33,7 +33,7 @@ In this lab we will generate ssh keys automatically during cluster creation.
 ```
 az batchai cluster create \
   --name  <Cluster name> \
-  --vm-size Standard_ND6s \
+  --vm-size Standard_NC6 \
   --image UbuntuLTS \
   --min 1 \
   --max 1 \
