@@ -4,11 +4,11 @@
 
 ### Copy training scripts
 ```
-cd <Repo root>/Azure_AI_Infrastructure/labs/Lab03-Parallel-Horovod
-az storage directory create --share-name  <File share name> --name scripts/lab03
-az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab03
-az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab03
-az storage file upload --share-name <File share name> --source feed.py --path scripts/lab03
+cd <Repo root>/Azure_AI_Infrastructure/labs/Lab02-Horovod
+az storage directory create --share-name  <File share name> --name scripts/lab02
+az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab02
+az storage file upload --share-name <File share name> --source model.py --path scripts/lab02
+az storage file upload --share-name <File share name> --source feed.py --path scripts/lab02
 ```
 
 
