@@ -16,7 +16,7 @@ az storage directory create \
 ```
 cd <Repo root>/Azure_AI_Infrastructure/Labs/Lab01-SingleGPU
 az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab01
-az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab01
+az storage file upload --share-name <File share name> --source model.py --path scripts/lab01
 az storage file upload --share-name <File share name> --source feed.py --path scripts/lab01
 ```
 
