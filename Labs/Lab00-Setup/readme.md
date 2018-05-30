@@ -110,6 +110,7 @@ Note that you have a lot flexibility configuring clusters. For the purpose of th
 ```
 az batchai cluster create \
   --name  <Cluster name> \
+  --location eastus2
   --vm-size STANDARD_NC12 \
   --image UbuntuLTS \
   --min 2 \
