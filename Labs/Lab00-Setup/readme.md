@@ -94,7 +94,7 @@ The instructor will provide you with <Storage account access key>
 
 ```
 azcopy \
---source https://azureailabs.blob.core.windows.net/aerial \
+--source https://azureailabs.blob.core.windows.net/woodtfrecords \
 --destination https://<storage account name>.file.core.windows.net/<file share name>/data \
 --dest-key <storage access key> \
 --recursive
