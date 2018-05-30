@@ -100,7 +100,6 @@ azcopy \
 --source https://azureailabs.blob.core.windows.net/woodtfrecords \
 --destination https://<storage account name>.file.core.windows.net/<file share name>/data \
 --dest-key <storage access key> \
---source-key k0sEc3OL07/c5Gy5L4LS4bPrvczX8Smktn2GGpISa9iQ4CGdPRvPQXZ71ZbAg5K3YCXpBJnk1kV/+ZahmO2KCA== \
 --recursive
 ```
 
