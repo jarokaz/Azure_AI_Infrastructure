@@ -1,16 +1,6 @@
 # Running a training job on a VM with multiple GPUs
 
 
-### Set environmnent variables
-To simplify further commands we can set up environmental variables with the storage account name and the access key
-```
-az storage account keys list \
-    -n <Storage account name> \
-    -o table
-export AZURE_STORAGE_ACCOUNT=<Storage account name>
-export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
-```
-
 
 ### Copy training scripts
 ```
