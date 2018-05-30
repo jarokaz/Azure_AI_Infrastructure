@@ -1,24 +1,14 @@
 # Running a training job on a VM with multiple GPUs
 
 
-### Set environmnent variables
-To simplify further commands we can set up environmental variables with the storage account name and the access key
-```
-az storage account keys list \
-    -n <Storage account name> \
-    -o table
-export AZURE_STORAGE_ACCOUNT=<Storage account name>
-export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
-```
-
 
 ### Copy training scripts
 ```
-cd <Repo root>/Azure_AI_Infrastructure/labs/Lab03-Parallel-Horovod
-az storage directory create --share-name  <File share name> --name scripts/lab03
-az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab03
-az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab03
-az storage file upload --share-name <File share name> --source feed.py --path scripts/lab03
+cd <Repo root>/Azure_AI_Infrastructure/labs/Lab02-Horovod
+az storage directory create --share-name  <File share name> --name scripts/lab02
+az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab02
+az storage file upload --share-name <File share name> --source model.py --path scripts/lab02
+az storage file upload --share-name <File share name> --source feed.py --path scripts/lab02
 ```
 
 
