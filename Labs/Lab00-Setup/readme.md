@@ -89,8 +89,7 @@ az storage directory create \
 #### Copy training data
 The data used during the workshop have been uploaded to a public Windows Storage container. You will need to copy it to the `data` folder you created in the previous step
 
-The instructor will provide you with <Storage account access key>
-    
+
 
 ```
 azcopy \
