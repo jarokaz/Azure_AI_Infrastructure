@@ -1,11 +1,13 @@
 # Environment set up
 
-## Required pre-requisites
+## Configure Azure Data Science Virtual Machine
 To participate in the workshop you need a workstation with  `ssh`, `git`, text editor, the latest version of `Azure CLI 2.0`, and `azcopy`. 
 
 You can install these components on Windows, MacOS, or Linux. 
 
-For the purpose of the workshop we will use Azure Data Science VM as an attendee workstation. Azure Data Science Virtual Machine comes with the required pre-requistes installed. However; to make sure that you have the latest version of `azure-cli` and `azcopy` we recommend to do the fresh installs.
+For the purpose of the workshop we will use Azure Data Science VM as an attendee workstation. The instructor will guide you through the provisioning process.
+
+Azure Data Science Virtual Machine comes with the required pre-requistes installed. However; to make sure that you have the latest version of `azure-cli` and `azcopy` we recommend to do fresh installs.
 
 To install `azure-cli`
 ```
@@ -20,6 +22,8 @@ wget -O azcopy.tar.gz https://aka.ms/downloadazcopylinux64
 tar -xf azcopy.tar.gz
 sudo ./install.sh
 ```
+
+If you want to monitor the jobs using Tensorboard you need to open port 6006 on your virtual machine.
 
 ## Create the workshop's resource group and storage
 All Azure resources created during the workshop will be hosted in the same resource group. It will simplify navigation and clean-up. This streamlined approach will work well for the workshop but does not represent the best practice for more complex production deployments. Refer to you organization's Azure guidance when setting up production grade environments.
