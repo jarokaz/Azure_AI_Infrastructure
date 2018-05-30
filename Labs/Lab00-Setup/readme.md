@@ -111,10 +111,10 @@ Note that you have a lot flexibility configuring clusters. For the purpose of th
 az batchai cluster create \
   --name  <Cluster name> \
   --location eastus2
-  --vm-size STANDARD_NC12 \
+  --vm-size STANDARD_NC6 \
   --image UbuntuLTS \
-  --min 2 \
-  --max 2 \
+  --min 1 \
+  --max 1 \
   --afs-name <File share name> \
   --afs-mount-path external \
   --generate-ssh-keys \
