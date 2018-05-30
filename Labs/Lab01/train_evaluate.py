@@ -93,7 +93,7 @@ def train_evaluate():
                         use_multiprocessing = True,
                         workers = 4,
                         callbacks = [tensorboard],
-                        verbose = 2)
+                        verbose = 1)
 
     # Save the model
     model.save(FLAGS.save_model_path)

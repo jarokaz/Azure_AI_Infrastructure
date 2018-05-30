@@ -7,7 +7,7 @@
             "commandLine": "pip install scikit-image"
         },
         "customToolkitSettings": {
-            "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_evaluate.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
+            "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_evaluate.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --log_dir=$AZ_BATCHAI_OUTPUT_LOGDIR --save_model_path=$AZ_BATCHAI_OUTPUT_SAVEMODEL"
         },
         "stdOutErrPathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
         "inputDirectories": [{
@@ -18,9 +18,13 @@
             "path": "$AZ_BATCHAI_MOUNT_ROOT/external/data"                    
         }],
         "outputDirectories": [{
-            "id": "JOBDIR",
+            "id": "LOGDIR",
             "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
-            "pathSuffix": "jobdir"
+            "pathSuffix": "logdir"
+	}, {
+	    "id": "SAVEMODEL",
+	    "pathPrefix": "$AZ_BATCHAI_MOUNT_ROOT/external",
+	    "pathSuffix": "savemodel"
         }],
         "containerSettings": {
             "imageSourceRegistry": {
