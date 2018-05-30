@@ -37,7 +37,6 @@ az batchai cluster create \
   --image UbuntuLTS \
   --min 1 \
   --max 1 \
-  --storage-account-name <Storage account name> \
   --afs-name <File share name> \
   --afs-mount-path external \
   --generate-ssh-keys \
