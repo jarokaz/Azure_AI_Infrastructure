@@ -10,12 +10,12 @@ from tensorflow.python.keras.utils import Sequence, to_categorical
 from tensorflow.python.keras.applications.resnet50 import ResNet50
 from tensorflow.python.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 from tensorflow.python.keras.optimizers import Adadelta, Adam
-from tensorflow.python.keras.callbacks import TensorBoard
 
 from tensorflow.python.keras import models
 from tensorflow.python.keras import layers
 from tensorflow.python.keras import Model, Input
 
+import horovod.keras as hvd
 
 class ImageSequence(Sequence):
     def __init__(self, dataset, batch_size, is_training):
@@ -78,22 +78,45 @@ def train_evaluate():
     training_data = ImageSequence(get_image_list(os.path.join(FLAGS.data_dir, 'train')), FLAGS.batch_size, True)
     validation_data = ImageSequence(get_image_list(os.path.join(FLAGS.data_dir, 'test')), FLAGS.batch_size, False)
 
+    # Horovod: Initialize Horovod
+    hvd.init()
+
+    # Horvod: Pin GPU to be used to process local rank (one GPU per process)
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    config.gpu_options.visible_device_list = str(hvd.local_rank())
+    tf.keras.backend.set_session(tf.Session(config=config))
+
     # Create a model
     model = network_model(FLAGS.hidden_units)
     loss = 'categorical_crossentropy'
-    optimizer = Adadelta()
+
+    # Horovod: Adjust learning rate based on number of GPUs
+    optimizer = Adadelta(lr=1.0 * hvd.size())
+    # Horovod: add Horovod Distributed Optimizer
+    optimizer = hvd.DistributedOptimizer(optimizer)
+
     metrics = ['acc']
     model.compile(optimizer, loss, metrics)
-   
+  
+    # Set up callbacks
+    callbacks = [
+        # Broadcast initial variable states from rank 0 to all other processes
+        hvd.callbacks.BroadcastGlobalVariablesCallback(0),
+    ]
+    
+    # Horovod: save  logs only on worker 0
+    if hvd.rank() == 0:
+        callbacks.append(tf.keras.callbacks.TensorBoard(log_dir=FLAGS.log_dir))
+
     # Start training
-    tensorboard = TensorBoard(log_dir=FLAGS.log_dir)
     model.fit_generator(generator = training_data,
                         validation_data = validation_data,
                         epochs = FLAGS.epochs,
                         use_multiprocessing = True,
                         workers = 4,
-                        callbacks = [tensorboard],
-                        verbose = 2)
+                        callbacks = callbacks,
+                        verbose = 1)
 
     # Save the model
     model.save(FLAGS.save_model_path)
