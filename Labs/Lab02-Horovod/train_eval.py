@@ -27,15 +27,14 @@ tf.app.flags.DEFINE_integer('throttle_secs', 120, "Evaluate every n seconds")
 tf.app.flags.DEFINE_integer('hidden_units', 256, "Hidden units")
                            
 
-from resnet import network_model
-import feed
+from model import network_model
 from feed import INPUT_NAME, IMAGE_SHAPE, NUM_CLASSES, input_fn, serving_input_fn
 
 def model_fn(features, labels, mode, params):
       
   # Create a model
   images = features[INPUT_NAME]
-  logits = network_model(hidden_units, images, NUM_CLASSES)  
+  logits = network_model(FLAGS.hidden_units, images, NUM_CLASSES)  
       
   # Define a predict mode Estimator spec
   if mode == tf.estimator.ModeKeys.PREDICT: 
