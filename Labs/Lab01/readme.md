@@ -4,15 +4,6 @@ The goal of this lab is to develop basic understanding of Azure Batch AI service
 
 **Follow the instructor**. The instructor will explain each step and deep dive into the algorithm used in the lab.
 
-### Set environmnent variables
-To simplify further commands we can set up environmental variables with the storage account name and the access key
-```
-az storage account keys list \
-    -n <Storage account name> \
-    -o table
-export AZURE_STORAGE_ACCOUNT=<Storage account name>
-export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
-```
 
 ### Create a directory for the lab's scripts
 ```
@@ -21,12 +12,10 @@ az storage directory create \
     --name scripts/lab01
 ```
 
-#### Copy training scripts
+#### Copy a training script
 ```
-cd <Repo root>/Azure_AI_Infrastructure/Labs/Lab01-SingleGPU
+cd <Repo root>/Azure_AI_Infrastructure/Labs/Lab01
 az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab01
-az storage file upload --share-name <File share name> --source resnet.py --path scripts/lab01
-az storage file upload --share-name <File share name> --source feed.py --path scripts/lab01
 ```
 
 #### Verify that files are in the right folders
