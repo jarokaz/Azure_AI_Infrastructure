@@ -15,7 +15,7 @@ az storage directory create \
 #### Copy a training script
 ```
 cd <Repo root>/Azure_AI_Infrastructure/Labs/Lab01
-az storage file upload --share-name <File share name> --source train_eval.py --path scripts/lab01
+az storage file upload --share-name <File share name> --source train_evaluate.py --path scripts/lab01
 ```
 
 #### Verify that files are in the right folders
