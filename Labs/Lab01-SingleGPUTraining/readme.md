@@ -26,38 +26,7 @@ az storage file list --share-name <File share name> --path scripts/lab01 -o tabl
 az storage file list --share-name <File share name> --path data -o table
 ```
 
-## Prepare a GPU cluster
 
-
-```
-az batchai cluster create \
-  --name  <Cluster name> \
-  --vm-size STANDARD_NC6 \
-  --image UbuntuLTS \
-  --min 1 \
-  --max 1 \
-  --storage-account-name <Storage account name> \
-  --afs-name <File share name> \
-  --afs-mount-path external \
-  --generate-ssh-keys \
-  --user-name $USER 
-```
-
-### Get cluster status
-```
-az batchai cluster list -o table
-```
-
-### List ssh connection info for the nodes in a cluster
-```
-az batchai cluster list-nodes -n <Cluster name> -o table
-```
-
-### Explore the cluster's node
-```
-ssh <IP address> -p node
-cd /mnt/batch/tasks/shared/LS_root/mounts
-```
 
 
 ## Create a training job
