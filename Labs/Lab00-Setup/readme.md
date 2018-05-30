@@ -101,14 +101,18 @@ azcopy \
 
 ## Prepare GPU cluster
 
+```
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC12 \
   --image UbuntuLTS \
   --min 2 \
   --max 2 \
+  --storage-account-name <Storage account name> \
   --afs-name <File share name> \
   --afs-mount-path external \
   --generate-ssh-keys \
   --user-name $USER 
+```
 
+    -
