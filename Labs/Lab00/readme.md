@@ -92,3 +92,6 @@ azcopy \
 --dest-key <storage access key> \
 --recursive
 ```
+
+It is time to take a break ....
+
