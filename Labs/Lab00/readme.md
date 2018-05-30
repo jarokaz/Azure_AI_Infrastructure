@@ -54,10 +54,15 @@ az storage account create --name <storage account name> --sku Standard_LRS
 ```
 All labs in the workshop utilize Azure File Shares as shared storage. Note that other shared storage options (e.g. NFS and distributed file systems) may perform better for really large data sets.
 
-To avoid entering storage account name and storage account keys on each command we can store them in an environmental variable
+To avoid entering the storage account name and the storage account key on each command we can store them in an environmental variable
+
 ```
-az storage account show-connection-string -n <storage account name>
-export AZURE_STORAGE_CONNECTION_STRING=<connection string>
+az storage account keys list \
+    -n <Storage account name> \
+    -o table
+export AZURE_STORAGE_ACCOUNT=<Storage account name>
+export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>```
+
 ```
 
 
