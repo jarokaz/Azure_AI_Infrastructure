@@ -57,7 +57,7 @@ All labs in the workshop utilize Azure File Shares as shared storage. Note that 
 To avoid entering storage account name and storage account keys on each command we can store them in an environmental variable
 ```
 az storage account show-connection-string -n <storage account name>
-export AZ_STORAGE_CONNECTION_STRING=<connection string>
+export AZURE_STORAGE_CONNECTION_STRING=<connection string>
 ```
 
 
