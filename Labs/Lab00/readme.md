@@ -45,14 +45,9 @@ pip install azure-cli
 To install `azcopy`
 
 ```
-echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-xenial-prod/ xenial main" > azure.list
-sudo cp ./azure.list /etc/apt/sources.list.d/
-apt-key adv --keyserver packages.microsoft.com --recv-keys B02C46DF417A0893
-```
-
-```
-sudo apt-get update
-sudo apt-get install azcopy
+wget -O azcopy.tar.gz https://aka.ms/downloadazcopylinux64
+tar -xf azcopy.tar.gz
+sudo ./install.sh
 ```
 
 
@@ -116,6 +111,12 @@ az storage directory create \
 
 #### Copy training data
 The training data in the TFRecords format have been uploaded to a public container in Azure storage. Use the following command to copy the files to your file share. The `--dryrun` option allows you to verify the configuration before starting the asynchronous copy operation.
+
+```
+wget -O azcopy.tar.gz https://aka.ms/downloadazcopylinux64
+tar -xf azcopy.tar.gz
+sudo ./install.sh
+```
 
 The instructor will provide you with <Storage account access key>
     
