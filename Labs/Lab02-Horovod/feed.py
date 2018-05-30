@@ -3,17 +3,10 @@ import tensorflow as tf
 
 # Global constants defining training/validation sets 
 INPUT_NAME = 'images'   
-NUM_TRAINING_FILES = 10
-
-INPUT_SHAPE = [None, 64, 64, 3]
-ORIGINAL_IMAGE_SHAPE = [64, 64, 3]
-IMAGE_SHAPE = [56, 56, 3]
-OFFSET_HEIGHT = 4
-OFFSET_WIDTH = 4
-TARGET_HEIGHT = 56
-TARGET_WIDTH = 56
-
-NUM_CLASSES = 200 
+INPUT_SHAPE = [None, 112, 112, 3]
+IMAGE_SHAPE = [112, 112, 3]
+NUM_CLASSES = 7 
+NUM_TRAINING_FILES = 1
 
 # Define input pipelines
 def scale_image(image):
@@ -34,14 +27,12 @@ def _parse(example_proto, augment):
   image = tf.decode_raw(features['image'], tf.uint8)
   image = tf.cast(image, tf.float32)
   image = scale_image(image)
-  image = tf.reshape(image, ORIGINAL_IMAGE_SHAPE)
+  image = tf.reshape(image, IMAGE_SHAPE)
   
   if augment:
-    image = tf.random_crop(image, IMAGE_SHAPE)
+    image = tf.image.random_hue(image, max_delta=0.1)
     image = tf.image.random_flip_left_right(image)
-  else:
-    image = tf.image.crop_to_bounding_box(image, OFFSET_HEIGHT, OFFSET_WIDTH, TARGET_HEIGHT, TARGET_WIDTH)
-     
+   
   label = features['label']
   #label = tf.one_hot(label, NUM_CLASSES)
   return image, label
@@ -50,7 +41,7 @@ def _parse(example_proto, augment):
 
 def get_filenames(is_training, data_dir):
     if is_training:
-        files = [os.path.join(data_dir, "training_{0}.tfrecords".format(i+1)) for i in range(NUM_TRAINING_FILES)]
+        files = [os.path.join(data_dir, "training.tfrecords")]
     else: 
         files = [os.path.join(data_dir, "validation.tfrecords")]
     return files
@@ -94,7 +85,6 @@ def input_fn(data_dir, is_training, batch_size, num_parallel_calls, shuffle_buff
 def serving_input_fn():
     input_image = tf.placeholder(shape=INPUT_SHAPE, dtype=tf.uint8)
     image = tf.cast(input_image, tf.float32)
-    image = tf.image.crop_to_bounding_box(image, OFFSET_HEIGHT, OFFSET_WIDTH, TARGET_HEIGHT, TARGET_WIDTH)
     scaled_image = scale_image(image)
     
     return tf.estimator.export.ServingInputReceiver({INPUT_NAME: scaled_image}, {INPUT_NAME: input_image})
