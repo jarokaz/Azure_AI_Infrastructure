@@ -4,15 +4,6 @@ The goal of this lab is to develop basic understanding of Azure Batch AI service
 
 **Follow the instructor**. The instructor will explain each step and deep dive into the algorithm used in the lab.
 
-### Set environmnent variables
-To simplify further commands we can set up environmental variables with the storage account name and the access key
-```
-az storage account keys list \
-    -n <Storage account name> \
-    -o table
-export AZURE_STORAGE_ACCOUNT=<Storage account name>
-export AZURE_STORAGE_ACCESS_KEY=<Storage account access key>
-```
 
 ### Create a directory for the lab's scripts
 ```
