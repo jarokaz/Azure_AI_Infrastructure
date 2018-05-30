@@ -37,49 +37,14 @@ az storage file list --share-name <File share name> --path data -o table
 
 ## Prepare a GPU cluster
 
-```
-az batchai cluster create \
-  --name  <Cluster name> \
-  --vm-size STANDARD_NC6 \
-  --image UbuntuLTS \
-  --min 3 \
-  --max 3 \
-  --storage-account-name <Storage account name> \
-  --afs-name <File share name> \
-  --afs-mount-path external \
-  --user-name <User name> \
-  --password <Password>
-```
-
-It is recommended, although not required, to use ssh keys instead of passwords
 
 ```
 az batchai cluster create \
   --name  <Cluster name> \
   --vm-size STANDARD_NC6 \
   --image UbuntuLTS \
-  --min 3 \
-  --max 3 \
-  --storage-account-name <Storage account name> \
-  --afs-name <File share name> \
-  --afs-mount-path external \
-  --ssh-key ~/.ssh/id_rsa.pub \
-  --user-name $USER 
-  
-```
-To generate `ssh` keys you can use an app of your choice including ssh-keygen:
-```
-ssh-keygen -t rsa
-```
-
-Or you can generate ssh keys automatically during cluster creation
-```
-az batchai cluster create \
-  --name  <Cluster name> \
-  --vm-size STANDARD_NC6 \
-  --image UbuntuLTS \
-  --min 3 \
-  --max 3 \
+  --min 1 \
+  --max 1 \
   --storage-account-name <Storage account name> \
   --afs-name <File share name> \
   --afs-mount-path external \
