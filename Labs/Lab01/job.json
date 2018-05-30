@@ -3,6 +3,9 @@
     "$schema": "https://raw.githubusercontent.com/Azure/BatchAI/master/schemas/2017-09-01-preview/job.json",
     "properties": {
         "nodeCount": 1,
+        "jobPreparation" : {
+            "commandLine": "pip install scikit-image"
+        },
         "customToolkitSettings": {
             "commandLine": "python $AZ_BATCHAI_INPUT_SCRIPTS/train_evaluate.py --data_dir=$AZ_BATCHAI_INPUT_DATASET --job_dir=$AZ_BATCHAI_OUTPUT_JOBDIR"
         },
