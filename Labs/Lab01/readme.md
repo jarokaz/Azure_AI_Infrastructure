@@ -98,30 +98,6 @@ az batchai job file stream \
 ### Use Azure portal
 You can also use Azure portal to monitor the job. 
 
-### Use Tensorboard
-#### Mount a Tensorboard logdir folder
-##### On Linux
-```
-sudo mkdir /mnt/<Mount directory name>
-sudo mount -t cifs //<Storage account name>.file.core.windows.net/<Share name> /mnt/<Mount directory name> -o vers=2.1,username=<Storage account name>,password=<Storage account key>,dir_mode=0777,file_mode=0777,serverino
-```
-
-Note: You may need to install CIFS utilities on your Linux machine. Azure DLVM and DSVM have these pre-installed:
-```
-sudo apt-get update
-sudo apt-get install cifs-utils
-```
-
-##### On Windows
-```
-net use <Drive letter>: \\<Storage account name>.file.core.windows.net\<Share name> <Storage account key> /user:<Storage account name>
-```
-#### Start tensorboard
-Start `tensorboard` on your development VM using the following command
-```
-tensorboard --logdir=<jobdir on a mount point> --ip=<IP address>
-```
-
 
 ### Terminate/Delete the job
 If you want to terminate or delet the job you can use the following commands
