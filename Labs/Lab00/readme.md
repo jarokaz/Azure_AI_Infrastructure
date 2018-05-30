@@ -63,7 +63,7 @@ az storage account keys list \
 export AZURE_STORAGE_ACCOUNT=<storage account name>
 export AZURE_STORAGE_ACCESS_KEY=<storage account access key>
 export AZURE_BATCHAI_STORAGE_ACCOUNT=<storage account name>
-export AZURE_BATCHAI_STORAGE_ACCESS_KEY=<storage account access key>
+export AZURE_BATCHAI_STORAGE_KEY=<storage account access key>
 
 ```
 
