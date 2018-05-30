@@ -19,22 +19,6 @@ az storage file list --share-name <File share name> --path scripts/lab03 -o tabl
 az storage file list --share-name <File share name> --path data -o table
 ```
 
-## Prepare a GPU cluster
-
-```
-az batchai cluster create \
-  --name  <Cluster name> \
-  --vm-size STANDARD_NC12 \
-  --image UbuntuDSVM \
-  --min 1 \
-  --max 1 \
-  --storage-account-name <Storage account name> \
-  --afs-name <File share name> \
-  --afs-mount-path external \
-  --generate-ssh-keys \
-  --user-name $USER 
-```
-
 ### Get cluster status
 ```
 az batchai cluster list -o table
