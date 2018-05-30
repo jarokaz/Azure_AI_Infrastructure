@@ -100,5 +100,5 @@ azcopy \
 --recursive
 ```
 
-It is time to take a break ....
+
 
