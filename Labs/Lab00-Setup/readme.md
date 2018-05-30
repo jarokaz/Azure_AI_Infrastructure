@@ -101,6 +101,8 @@ azcopy \
 
 ## Prepare GPU cluster
 
+Note that you have a lot flexibility configuring clusters. For the purpose of the workshop, we are configuring a very simple cluster with two multi-gpu nodes, a single shared storage end-point, and ssh key based authentication
+
 ```
 az batchai cluster create \
   --name  <Cluster name> \
@@ -108,11 +110,25 @@ az batchai cluster create \
   --image UbuntuLTS \
   --min 2 \
   --max 2 \
-  --storage-account-name <Storage account name> \
   --afs-name <File share name> \
   --afs-mount-path external \
   --generate-ssh-keys \
   --user-name $USER 
 ```
 
-    -
+### Get cluster status
+```
+az batchai cluster list -o table
+```
+
+### List ssh connection info for the nodes in a cluster
+```
+az batchai cluster list-nodes -n <Cluster name> -o table
+```
+
+### Explore the cluster's node
+```
+ssh <IP address> -p node
+cd /mnt/batch/tasks/shared/LS_root/mounts
+```
+
